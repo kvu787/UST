@@ -1,0 +1,9 @@
+# Godot 4+ specific ignores
+.godot/
+/android/
+
+# Visual Studio
+.vs/
+
+# Folder for export files
+/BuildOutput/
