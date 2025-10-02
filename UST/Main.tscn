@@ -30,6 +30,21 @@ theme_override_styles/normal = ExtResource("1_glv2v")
 disabled = true
 button_mask = 0
 
+[node name="Panel" type="Panel" parent="."]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 10.0
+offset_right = 1590.0
+offset_bottom = 849.0
+
+[node name="Label" type="Label" parent="Panel"]
+layout_mode = 0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = 137.0
+offset_bottom = 27.0
+text = "< Output goes here >"
+
 [node name="CommandInput" type="LineEdit" parent="."]
 layout_mode = 0
 offset_left = 10.0
