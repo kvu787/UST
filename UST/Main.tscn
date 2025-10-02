@@ -1,5 +1,50 @@
-[gd_scene format=3 uid="uid://back2kf7ublo7"]
+[gd_scene load_steps=2 format=3 uid="uid://back2kf7ublo7"]
+
+[ext_resource type="StyleBox" uid="uid://bjx14bgb26ioq" path="res://Invisible_StyleBoxFlat.tres" id="1_glv2v"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
 anchors_preset = 0
+
+[node name="FocusCatcherButton" type="Button" parent="."]
+layout_mode = 0
+offset_right = 1600.0
+offset_bottom = 900.0
+focus_neighbor_left = NodePath("../CommandInput")
+focus_neighbor_top = NodePath("../CommandInput")
+focus_neighbor_right = NodePath("../CommandInput")
+focus_neighbor_bottom = NodePath("../CommandInput")
+focus_next = NodePath("../CommandInput")
+focus_previous = NodePath("../CommandInput")
+theme_override_styles/focus = ExtResource("1_glv2v")
+theme_override_styles/disabled_mirrored = ExtResource("1_glv2v")
+theme_override_styles/disabled = ExtResource("1_glv2v")
+theme_override_styles/hover_pressed_mirrored = ExtResource("1_glv2v")
+theme_override_styles/hover_pressed = ExtResource("1_glv2v")
+theme_override_styles/hover_mirrored = ExtResource("1_glv2v")
+theme_override_styles/hover = ExtResource("1_glv2v")
+theme_override_styles/pressed_mirrored = ExtResource("1_glv2v")
+theme_override_styles/pressed = ExtResource("1_glv2v")
+theme_override_styles/normal_mirrored = ExtResource("1_glv2v")
+theme_override_styles/normal = ExtResource("1_glv2v")
+disabled = true
+button_mask = 0
+
+[node name="CommandInput" type="LineEdit" parent="."]
+layout_mode = 0
+offset_left = 10.0
+offset_top = 859.0
+offset_right = 1590.0
+offset_bottom = 890.0
+focus_neighbor_left = NodePath("../FocusCatcherButton")
+focus_neighbor_top = NodePath("../FocusCatcherButton")
+focus_neighbor_right = NodePath("../FocusCatcherButton")
+focus_neighbor_bottom = NodePath("../FocusCatcherButton")
+focus_next = NodePath("../FocusCatcherButton")
+focus_previous = NodePath("../FocusCatcherButton")
+placeholder_text = "Type a command here. Press ENTER to submit."
+keep_editing_on_text_submit = true
+clear_button_enabled = true
+middle_mouse_paste_enabled = false
+drag_and_drop_selection_enabled = false
+caret_blink = true
