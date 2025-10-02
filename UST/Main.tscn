@@ -45,6 +45,4 @@ focus_previous = NodePath("../FocusCatcherButton")
 placeholder_text = "Type a command here. Press ENTER to submit."
 keep_editing_on_text_submit = true
 clear_button_enabled = true
-middle_mouse_paste_enabled = false
-drag_and_drop_selection_enabled = false
 caret_blink = true
