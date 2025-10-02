@@ -24,3 +24,7 @@ window/size/resizable=false
 [dotnet]
 
 project/assembly_name="UST"
+
+[gui]
+
+theme/custom="uid://vw5woyxgkget"
