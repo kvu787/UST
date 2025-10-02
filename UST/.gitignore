@@ -4,6 +4,3 @@
 
 # Visual Studio
 .vs/
-
-# Folder for export files
-/BuildOutput/
