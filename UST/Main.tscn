@@ -17,12 +17,6 @@ theme_override_styles/panel = ExtResource("1_uu6xs")
 layout_mode = 0
 offset_right = 1600.0
 offset_bottom = 900.0
-focus_neighbor_left = NodePath("../CommandInput")
-focus_neighbor_top = NodePath("../CommandInput")
-focus_neighbor_right = NodePath("../CommandInput")
-focus_neighbor_bottom = NodePath("../CommandInput")
-focus_next = NodePath("../CommandInput")
-focus_previous = NodePath("../CommandInput")
 theme_override_styles/focus = ExtResource("1_glv2v")
 theme_override_styles/disabled_mirrored = ExtResource("1_glv2v")
 theme_override_styles/disabled = ExtResource("1_glv2v")
@@ -36,35 +30,3 @@ theme_override_styles/normal_mirrored = ExtResource("1_glv2v")
 theme_override_styles/normal = ExtResource("1_glv2v")
 disabled = true
 button_mask = 0
-
-[node name="Panel" type="Panel" parent="."]
-layout_mode = 0
-offset_left = 10.0
-offset_top = 10.0
-offset_right = 1590.0
-offset_bottom = 849.0
-
-[node name="Label" type="Label" parent="Panel"]
-layout_mode = 0
-offset_left = 4.0
-offset_top = 4.0
-offset_right = 137.0
-offset_bottom = 27.0
-text = "< Output goes here >"
-
-[node name="CommandInput" type="LineEdit" parent="."]
-layout_mode = 0
-offset_left = 10.0
-offset_top = 859.0
-offset_right = 1590.0
-offset_bottom = 890.0
-focus_neighbor_left = NodePath("../FocusCatcherButton")
-focus_neighbor_top = NodePath("../FocusCatcherButton")
-focus_neighbor_right = NodePath("../FocusCatcherButton")
-focus_neighbor_bottom = NodePath("../FocusCatcherButton")
-focus_next = NodePath("../FocusCatcherButton")
-focus_previous = NodePath("../FocusCatcherButton")
-placeholder_text = "Type a command here. Press ENTER to submit."
-keep_editing_on_text_submit = true
-clear_button_enabled = true
-caret_blink = true
