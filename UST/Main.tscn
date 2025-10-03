@@ -1,7 +1,9 @@
-[gd_scene load_steps=3 format=3 uid="uid://back2kf7ublo7"]
+[gd_scene load_steps=5 format=3 uid="uid://back2kf7ublo7"]
 
 [ext_resource type="StyleBox" uid="uid://bjx14bgb26ioq" path="res://Styles/Invisible_StyleBoxFlat.tres" id="1_glv2v"]
 [ext_resource type="StyleBox" uid="uid://d2165log8m7yg" path="res://Styles/WhitePanel.tres" id="1_uu6xs"]
+[ext_resource type="FontFile" uid="uid://do2qc7ya0hy7g" path="res://Fonts/JetBrainsMonoNL-Regular.ttf" id="3_cm0pq"]
+[ext_resource type="StyleBox" uid="uid://bl2t1ftcam3jl" path="res://Styles/CommandInput.tres" id="3_r0du0"]
 
 [node name="Control" type="Control"]
 layout_mode = 3
@@ -30,3 +32,23 @@ theme_override_styles/normal_mirrored = ExtResource("1_glv2v")
 theme_override_styles/normal = ExtResource("1_glv2v")
 disabled = true
 button_mask = 0
+
+[node name="LineEdit" type="LineEdit" parent="."]
+layout_mode = 0
+offset_top = 883.0
+offset_right = 1600.0
+offset_bottom = 900.0
+theme_override_colors/selection_color = Color(0, 0, 0, 1)
+theme_override_colors/caret_color = Color(0, 0, 0, 1)
+theme_override_colors/font_placeholder_color = Color(0, 0, 0, 1)
+theme_override_colors/font_selected_color = Color(1, 1, 1, 1)
+theme_override_colors/font_uneditable_color = Color(1, 0, 0, 1)
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_fonts/font = ExtResource("3_cm0pq")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/focus = ExtResource("3_r0du0")
+theme_override_styles/read_only = ExtResource("3_r0du0")
+theme_override_styles/normal = ExtResource("3_r0du0")
+text = "Click here. Type a command. Press ENTER to submit."
+keep_editing_on_text_submit = true
+caret_blink = true
