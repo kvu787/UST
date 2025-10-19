@@ -8,6 +8,18 @@ indent_size = 4
 indent_style = space
 indent_size = 4
 
+# - Code inspection: Type is never used (non-private accessibility)
+resharper_unused_type_global_highlighting = none
+
+# - Code inspection: Class is never instantiated (non-private accessibility)
+resharper_class_never_instantiated_global_highlighting = none
+
+# - Code inspection: Type member is never used (non-private accessibility)
+resharper_unused_member_global_highlighting = none
+
+# - Code inspection: Get-only auto-property is never assigned
+resharper_unassigned_get_only_auto_property_highlighting = none
+
 # Treat all IDE* warnings as errors.
 # Later lines may override this for specific rules.
 dotnet_analyzer_diagnostic.category-Style.severity = error
