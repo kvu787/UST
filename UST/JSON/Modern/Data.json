@@ -1,0 +1,38 @@
+{
+    "Locations": [
+        {
+            "Name": "WhiteHouse"
+        },
+        "WhiteHouse",
+        "FortMyer",
+        "ArlingtonNationalCemetery"
+    ],
+    "Templates": {
+        "Units": [
+            {
+                "Type": "President",
+                "Health": 0,
+                "Defense": 0,
+                "Evasion": 0,
+                "AttackDamage": 0,
+                "AttackSpeed": 0,
+                "Accuracy": 0,
+                "MovementSpeed": 0
+            }
+        ],
+        "Buildings": [
+            {
+                "Type": "Castle",
+                "Health": 10000,
+                "Defense": 100
+            },
+            {
+                "Type": "Tower",
+                "Health": 1000,
+                "Defense": 50,
+                "AttackDamage": 10,
+                "AttackSpeed": 1
+            }
+        ]
+    }
+}

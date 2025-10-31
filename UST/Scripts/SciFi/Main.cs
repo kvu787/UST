@@ -1,7 +1,7 @@
 using Godot;
 using System.Collections.ObjectModel;
 
-namespace UST.Scripts;
+namespace UST.Scripts.SciFi;
 
 public partial class Main : Node {
     // Called when the node enters the scene tree for the first time.
@@ -14,60 +14,21 @@ public partial class Main : Node {
 }
 
 public enum UnitType {
-    Rogue,
-    Trader,
-    Knight,
-    Mage,
-    Blacksmith
 }
 
 public enum BuildingType {
-    Tavern,
-    Arcanum,
-    Barracks,
-    Blacksmith,
-    Castle,
-    House,
-    Market
-}
-
-public enum ResourceType {
-    Gold,
-    Stone,
-    Brick,
-    Water,
-    Wood,
-    Food,
-    Oil,
-    Minerals
 }
 
 public enum LocationType {
-    Swamp,
-    Mountains,
-    Plateau,
-    Desert,
-    Temperate,
-    Wasteland,
-    Tropics
+}
+
+public enum ResourceType {
+}
+
+public enum TerrainType {
 }
 
 public enum PathType {
-    GravelPavement,
-    DirtPavement,
-    BrickPavement,
-    StoneSlabPavement,
-    AsphaltPavement,
-    CobblestonePavement,
-    Swamp,
-    Mountain,
-    Sand,
-    Water,
-    Forest,
-    Ice,
-    Snow,
-    Plains,
-    Mesa
 }
 
 public class Unit {
