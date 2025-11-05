@@ -12,8 +12,13 @@ indent_size = 4
 ### JetBrains Rider rules ###
 #############################
 
-# JetBrains Rider code inspection reference:
+# JetBrains Rider reference:
 # https://www.jetbrains.com/help/resharper/Reference__Code_Inspections_CSHARP.html
+# https://www.jetbrains.com/help/resharper/EditorConfig_Index.html
+# https://www.jetbrains.com/help/rider/EditorConfig_Index.html
+
+# - Auto-wrap lines
+resharper_csharp_wrap_lines = false
 
 # - Common Practices and Code Improvements: Get-only auto-property is never assigned
 resharper_unassigned_get_only_auto_property_highlighting = none
