@@ -8,20 +8,32 @@ indent_size = 4
 indent_style = space
 indent_size = 4
 
-# - Code inspection: Type is never used (non-private accessibility)
+# JetBrains Rider code inspection reference:
+# https://www.jetbrains.com/help/resharper/Reference__Code_Inspections_CSHARP.html
+
+# - Constraints Violations: Inconsistent Naming
+resharper_inconsistent_naming_highlighting = none
+
+# - Redundancies in Symbol Declarations: Type is never used (non-private accessibility)
 resharper_unused_type_global_highlighting = none
 
-# - Code inspection: Class is never instantiated (non-private accessibility)
+# - Potential Code Quality Issues: Class is never instantiated (non-private accessibility)
 resharper_class_never_instantiated_global_highlighting = none
 
-# - Code inspection: Type member is never used (non-private accessibility)
+# - Redundancies in Symbol Declarations: Type member is never used (non-private accessibility)
 resharper_unused_member_global_highlighting = none
 
-# - Code inspection: Get-only auto-property is never assigned
+# - Common Practices and Code Improvements: Get-only auto-property is never assigned
 resharper_unassigned_get_only_auto_property_highlighting = none
 
-# - Disable CA1008: Enums should have zero value
+# - CA1008: Enums should have zero value
 dotnet_diagnostic.CA1008.severity = none
+
+# - CA1865: Use 'string.Method(char)' instead of 'string.Method(string)' for string with single char
+dotnet_diagnostic.CA1865.severity = none
+
+# - CA2213: Disposable fields should be disposed
+dotnet_diagnostic.CA2213.severity = none
 
 # Treat all IDE* warnings as errors.
 # Later lines may override this for specific rules.
