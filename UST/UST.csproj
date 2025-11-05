@@ -18,4 +18,7 @@
         <!-- Disable CS1591: Missing XML comment for publicly visible type or member 'Type_or_Member' -->
         <NoWarn>1591</NoWarn>
     </PropertyGroup>
+    <ItemGroup>
+      <PackageReference Include="System.CommandLine" Version="2.0.0-rc.2.25502.107" />
+    </ItemGroup>
 </Project>
