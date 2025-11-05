@@ -11,20 +11,20 @@ indent_size = 4
 # JetBrains Rider code inspection reference:
 # https://www.jetbrains.com/help/resharper/Reference__Code_Inspections_CSHARP.html
 
+# - Common Practices and Code Improvements: Get-only auto-property is never assigned
+resharper_unassigned_get_only_auto_property_highlighting = none
+
 # - Constraints Violations: Inconsistent Naming
 resharper_inconsistent_naming_highlighting = none
-
-# - Redundancies in Symbol Declarations: Type is never used (non-private accessibility)
-resharper_unused_type_global_highlighting = none
 
 # - Potential Code Quality Issues: Class is never instantiated (non-private accessibility)
 resharper_class_never_instantiated_global_highlighting = none
 
+# - Redundancies in Symbol Declarations: Type is never used (non-private accessibility)
+resharper_unused_type_global_highlighting = none
+
 # - Redundancies in Symbol Declarations: Type member is never used (non-private accessibility)
 resharper_unused_member_global_highlighting = none
-
-# - Common Practices and Code Improvements: Get-only auto-property is never assigned
-resharper_unassigned_get_only_auto_property_highlighting = none
 
 # - CA1008: Enums should have zero value
 dotnet_diagnostic.CA1008.severity = none
