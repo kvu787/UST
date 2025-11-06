@@ -26,6 +26,9 @@ resharper_unassigned_get_only_auto_property_highlighting = none
 # - Constraints Violations: Inconsistent Naming
 resharper_inconsistent_naming_highlighting = none
 
+# - Constraints Violations: Namespace does not correspond to file location
+resharper_check_namespace_highlighting = none
+
 # - Potential Code Quality Issues: Class is never instantiated (non-private accessibility)
 resharper_class_never_instantiated_global_highlighting = none
 
@@ -131,9 +134,9 @@ csharp_preserve_single_line_blocks = true
 dotnet_diagnostic.IDE0065.severity = error
 csharp_using_directive_placement = outside_namespace
 
-# + IDE0130: Namespace does not match folder structure
-dotnet_diagnostic.IDE0130.severity = error
-dotnet_style_namespace_match_folder = true
+# - IDE0130: Namespace does not match folder structure
+dotnet_diagnostic.IDE0130.severity = none
+dotnet_style_namespace_match_folder = false
 
 # - IDE0160: Use block-scoped namespace
 dotnet_diagnostic.IDE0160.severity = none
