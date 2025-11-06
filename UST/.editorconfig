@@ -42,6 +42,9 @@ resharper_unused_member_global_highlighting = none
 ### Code analysis rules ###
 ###########################
 
+# - CA1002: Do not expose generic lists
+dotnet_diagnostic.CA1002.severity = none
+
 # - CA1008: Enums should have zero value
 dotnet_diagnostic.CA1008.severity = none
 
@@ -50,6 +53,9 @@ dotnet_diagnostic.CA1865.severity = none
 
 # - CA2213: Disposable fields should be disposed
 dotnet_diagnostic.CA2213.severity = none
+
+# - CA2227: Collection properties should be read only
+dotnet_diagnostic.CA2227.severity = none
 
 ########################
 ### Code style rules ###
