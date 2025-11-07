@@ -13,12 +13,20 @@ indent_size = 4
 #############################
 
 # JetBrains Rider reference:
-# https://www.jetbrains.com/help/resharper/Reference__Code_Inspections_CSHARP.html
 # https://www.jetbrains.com/help/resharper/EditorConfig_Index.html
+# https://www.jetbrains.com/help/resharper/Reference__Code_Inspections_CSHARP.html
 # https://www.jetbrains.com/help/rider/EditorConfig_Index.html
+# https://www.jetbrains.com/help/rider/Reference__Code_Inspections_CSHARP.html
 
 # - Auto-wrap lines
+# I can't find this in the online documentation.
 resharper_csharp_wrap_lines = false
+
+# Enforce trailing commas
+trailing_comma_in_multiline_lists = true
+trailing_comma_in_singleline_lists = true
+resharper_arrange_trailing_comma_in_multiline_lists_highlighting = error
+resharper_arrange_trailing_comma_in_singleline_lists_highlighting = error
 
 # - Common Practices and Code Improvements: Get-only auto-property is never assigned
 resharper_unassigned_get_only_auto_property_highlighting = none
