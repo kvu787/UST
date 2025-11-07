@@ -96,6 +96,28 @@ dotnet_diagnostic.IDE0045.severity = none
 # - IDE0051: Remove unused private member
 dotnet_diagnostic.IDE0051.severity = none
 
+# + IDE0065: 'using' directive placement
+dotnet_diagnostic.IDE0065.severity = error
+csharp_using_directive_placement = outside_namespace
+
+# - IDE0130: Namespace does not match folder structure
+dotnet_diagnostic.IDE0130.severity = none
+dotnet_style_namespace_match_folder = false
+
+# - IDE0160: Use block-scoped namespace
+dotnet_diagnostic.IDE0160.severity = none
+
+# + IDE0161: Use file-scoped namespace
+dotnet_diagnostic.IDE0161.severity = error
+csharp_style_namespace_declarations = file_scoped
+
+# - IDE0270: Null check can be simplified (if null check)
+dotnet_diagnostic.IDE0270.severity = none
+
+#############################
+### Code formatting rules ###
+#############################
+
 # + IDE0055: Formatting rules
 dotnet_diagnostic.IDE0055.severity = error
 
@@ -147,21 +169,3 @@ csharp_space_between_square_brackets = false
 ## Wrap options
 csharp_preserve_single_line_statements = false
 csharp_preserve_single_line_blocks = true
-
-# + IDE0065: 'using' directive placement
-dotnet_diagnostic.IDE0065.severity = error
-csharp_using_directive_placement = outside_namespace
-
-# - IDE0130: Namespace does not match folder structure
-dotnet_diagnostic.IDE0130.severity = none
-dotnet_style_namespace_match_folder = false
-
-# - IDE0160: Use block-scoped namespace
-dotnet_diagnostic.IDE0160.severity = none
-
-# + IDE0161: Use file-scoped namespace
-dotnet_diagnostic.IDE0161.severity = error
-csharp_style_namespace_declarations = file_scoped
-
-# - IDE0270: Null check can be simplified (if null check)
-dotnet_diagnostic.IDE0270.severity = none
