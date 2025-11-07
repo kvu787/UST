@@ -9,9 +9,10 @@ public partial class Main : Node {
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready() {
+        GD.Print("READY");
         MainInstance = this;
         this.CommandProcessor = new();
-        Gold gold = new() { Name = "g1", Amount = 2000 };
+        Gold gold = new() { Name = "g1", Amount = 2000, };
 
         this.CommandInput = this.GetNode<LineEdit>("LineEdit");
         this.CommandInput.GuiInput += this.OnCommandInput;
@@ -29,7 +30,7 @@ public partial class Main : Node {
     }
 
     private void OnCommandInput(InputEvent @event) {
-        if (@event is InputEventKey keyEvent && keyEvent is { Pressed: true, Keycode: Key.Enter }) {
+        if (@event is InputEventKey keyEvent && keyEvent is { Pressed: true, Keycode: Key.Enter, }) {
             string text = this.CommandInput.Text.Trim();
             this.CommandInput.Clear();
             this.CommandProcessor.Execute(text);
