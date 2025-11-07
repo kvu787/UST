@@ -29,8 +29,14 @@ resharper_inconsistent_naming_highlighting = none
 # - Constraints Violations: Namespace does not correspond to file location
 resharper_check_namespace_highlighting = none
 
+# - Language Usage Opportunities: Merge null/pattern checks into complex pattern
+resharper_merge_into_pattern_highlighting = none
+
 # - Potential Code Quality Issues: Class is never instantiated (non-private accessibility)
 resharper_class_never_instantiated_global_highlighting = none
+
+# - Redundancies in Code: Redundant verbatim string prefix
+resharper_redundant_verbatim_string_prefix_highlighting = none
 
 # - Redundancies in Symbol Declarations: Type is never used (non-private accessibility)
 resharper_unused_type_global_highlighting = none
@@ -47,6 +53,9 @@ dotnet_diagnostic.CA1002.severity = none
 
 # - CA1008: Enums should have zero value
 dotnet_diagnostic.CA1008.severity = none
+
+# - CA1823: Avoid unused private fields
+dotnet_diagnostic.CA1823.severity = none
 
 # - CA1865: Use 'string.Method(char)' instead of 'string.Method(string)' for string with single char
 dotnet_diagnostic.CA1865.severity = none
@@ -77,6 +86,9 @@ dotnet_style_qualification_for_method = true
 
 # - IDE0040: Add accessibility modifiers
 dotnet_diagnostic.IDE0040.severity = none
+
+# - IDE0044: Add readonly modifier
+dotnet_diagnostic.IDE0044.severity = none
 
 # - IDE0045: Convert to conditional expression
 dotnet_diagnostic.IDE0045.severity = none
