@@ -38,8 +38,10 @@ button_mask = 0
 
 [node name="TextEdit" type="TextEdit" parent="."]
 layout_mode = 0
-offset_right = 1600.0
-offset_bottom = 883.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = 1595.0
+offset_bottom = 873.0
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 theme_override_colors/selection_color = Color(0.9, 0.9, 0.9, 1)
 theme_override_colors/font_selected_color = Color(0, 0, 0, 1)
@@ -57,9 +59,10 @@ caret_move_on_right_click = false
 
 [node name="LineEdit" type="LineEdit" parent="."]
 layout_mode = 0
-offset_top = 883.0
-offset_right = 1600.0
-offset_bottom = 900.0
+offset_left = 5.0
+offset_top = 878.0
+offset_right = 1595.0
+offset_bottom = 895.0
 theme_override_colors/selection_color = Color(0.9, 0.9, 0.9, 1)
 theme_override_colors/caret_color = Color(0, 0, 0, 1)
 theme_override_colors/font_placeholder_color = Color(0, 0, 0, 1)
