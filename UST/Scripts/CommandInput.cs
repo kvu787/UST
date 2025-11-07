@@ -2,6 +2,7 @@ using Godot;
 using System;
 using System.Collections.Generic;
 using System.CommandLine;
+using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 
@@ -9,13 +10,17 @@ namespace UST;
 
 public class CommandProcessor {
     private readonly RootCommand RootCommand;
+    private readonly Argument<string> NameArgument = new("name");
     private readonly Option<string> NameOption = new("--name", "-n") { Required = true, };
     private readonly Option<string> Location1Option = new("--location1", "-l1") { Required = true, };
     private readonly Option<string> Location2Option = new("--location2", "-l2") { Required = true, };
 
     public CommandProcessor() {
+        Command openCommand = new("open") { Arguments = { this.NameArgument, }, };
+        openCommand.SetAction(this.OpenAction);
+
         Command exitCommand = new("exit");
-        exitCommand.SetAction(ExitAction);
+        exitCommand.SetAction(this.ExitAction);
 
         Command addPathCommand = new("path") { Options = { this.Location1Option, this.Location2Option, }, };
         addPathCommand.SetAction(this.AddPathAction);
@@ -25,10 +30,32 @@ public class CommandProcessor {
 
         Command addCommand = new("add") { Subcommands = { addLocationCommand, addPathCommand, }, };
 
-        this.RootCommand = new RootCommand("UST CLI") { Subcommands = { addCommand, exitCommand, }, };
+        this.RootCommand = new RootCommand("UST CLI") {
+            Subcommands = {
+                addCommand,
+                exitCommand,
+                openCommand,
+            },
+        };
     }
 
-    private static void ExitAction(ParseResult _) {
+    private void OpenAction(ParseResult pr) {
+        string fileName = pr.GetValue(this.NameArgument);
+        if (fileName.IndexOfAny(['/', '\\',]) != -1) {
+            GD.Print($"Error: File name must not contain slashes. File name: {fileName}.");
+            return;
+        }
+
+        string filePath = Path.Combine(ProjectSettings.GlobalizePath("user://"), fileName);
+        if (!File.Exists(filePath)) {
+            GD.Print($"Creating new file at '{filePath}' ...");
+            using FileStream _ = File.Create(filePath);
+        }
+
+        Main.SaveFileConnected = true;
+    }
+
+    private void ExitAction(ParseResult _) {
         Main.QuitGame();
     }
 

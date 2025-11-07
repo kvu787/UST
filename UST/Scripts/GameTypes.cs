@@ -1,4 +1,4 @@
-namespace UST;
+namespace UST.GameTypes;
 
 public abstract class Resource {
     public required string Name { get; set; }

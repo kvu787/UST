@@ -1,4 +1,5 @@
 using Godot;
+using UST.GameTypes;
 
 namespace UST;
 
@@ -7,9 +8,13 @@ public partial class Main : Node {
     private LineEdit CommandInput;
     private CommandProcessor CommandProcessor;
 
+    public static bool SaveFileConnected { get; set; }
+
     // Called when the node enters the scene tree for the first time.
     public override void _Ready() {
         GD.Print("READY");
+        GD.Print(ProjectSettings.GlobalizePath("user://"));
+
         MainInstance = this;
         this.CommandProcessor = new();
         Gold gold = new() { Name = "g1", Amount = 2000, };
@@ -33,6 +38,11 @@ public partial class Main : Node {
         if (@event is InputEventKey keyEvent && keyEvent is { Pressed: true, Keycode: Key.Enter, }) {
             string text = this.CommandInput.Text.Trim();
             this.CommandInput.Clear();
+            if (!SaveFileConnected) {
+                GD.Print("You must connect a save file before executing any commands.");
+                return;
+            }
+
             this.CommandProcessor.Execute(text);
         }
     }
