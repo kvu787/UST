@@ -5,8 +5,8 @@ namespace UST;
 
 public partial class Main : Node {
     private static Main MainInstance;
-    private LineEdit CommandInput;
-    private CommandProcessor CommandProcessor;
+    private LineEdit TerminalLineEdit;
+    private Terminal Terminal;
 
     public static bool SaveFileConnected { get; set; }
 
@@ -27,14 +27,14 @@ public partial class Main : Node {
         GD.Print(ProjectSettings.GlobalizePath("user://"));
 
         MainInstance = this;
-        this.CommandProcessor = new();
+        this.Terminal = new();
         Gold gold = new() { Name = "g1", Amount = 2000, };
 
-        this.CommandInput = this.GetNode<LineEdit>("LineEdit");
-        this.CommandInput.GuiInput += this.OnCommandInput;
+        this.TerminalLineEdit = this.GetNode<LineEdit>("LineEdit");
+        this.TerminalLineEdit.GuiInput += this.OnTerminalSubmit;
 
-        this.CommandInput.FocusEntered += () => this.CommandInput.PlaceholderText = "";
-        this.CommandInput.FocusExited += () => this.CommandInput.PlaceholderText = "Click here. Type a command. Press ENTER to submit.";
+        this.TerminalLineEdit.FocusEntered += () => this.TerminalLineEdit.PlaceholderText = "";
+        this.TerminalLineEdit.FocusExited += () => this.TerminalLineEdit.PlaceholderText = "Click here. Type a command. Press ENTER to submit.";
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -45,10 +45,10 @@ public partial class Main : Node {
         MainInstance.GetTree().Quit();
     }
 
-    private void OnCommandInput(InputEvent @event) {
+    private void OnTerminalSubmit(InputEvent @event) {
         if (@event is InputEventKey keyEvent && keyEvent is { Pressed: true, Keycode: Key.Enter, }) {
-            this.CommandProcessor.Execute(this.CommandInput.Text.Trim());
-            this.CommandInput.Clear();
+            this.Terminal.Execute(this.TerminalLineEdit.Text.Trim());
+            this.TerminalLineEdit.Clear();
         }
     }
 }

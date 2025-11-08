@@ -8,7 +8,7 @@ using System.Text.RegularExpressions;
 
 namespace UST;
 
-public class CommandProcessor {
+public class Terminal {
     private readonly Argument<string> NameArgument = new("name");
     private readonly Option<string> NameOption = new("--name", "-n") { Required = true, };
     private readonly Option<string> Location1Option = new("--location1", "-l1") { Required = true, };
@@ -21,7 +21,7 @@ public class CommandProcessor {
     private readonly Command ExitCommand = new("exit");
     private readonly Command OpenCommand = new("open");
 
-    public CommandProcessor() {
+    public Terminal() {
         this.RootCommand.Subcommands.Add(this.AddCommand);
         {
             this.AddCommand.Subcommands.Add(this.AddPathCommand);
