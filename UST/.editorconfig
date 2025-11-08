@@ -37,6 +37,9 @@ resharper_inconsistent_naming_highlighting = none
 # - Constraints Violations: Namespace does not correspond to file location
 resharper_check_namespace_highlighting = none
 
+# - Language Usage Opportunities: Invert 'if' statement to reduce nesting
+resharper_invert_if_highlighting = none
+
 # - Language Usage Opportunities: Merge null/pattern checks into complex pattern
 resharper_merge_into_pattern_highlighting = none
 
