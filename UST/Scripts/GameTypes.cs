@@ -21,37 +21,40 @@ public enum PathType {
 }
 
 public abstract class WorldObject {
+    public abstract float BaseHealth { get; set; }
+    public abstract float BaseDefense { get; set; }
+    public abstract float BaseAttackDamage { get; set; }
+    public abstract float BaseAttackSpeed { get; set; }
+    public abstract float BaseAccuracy { get; set; }
+
     public string Name { get; set; }
-    public abstract float Health { get; set; }
-    public abstract float Defense { get; set; }
-    public abstract float AttackDamage { get; set; }
-    public abstract float AttackSpeed { get; set; }
-    public abstract float Accuracy { get; set; }
+    public uint Team { get; set; }
+    public float Health { get; set; }
 }
 
 public abstract class Unit : WorldObject {
-    public abstract float MovementSpeed { get; set; }
-    public abstract float Evasion { get; set; }
+    public abstract float BaseEvasion { get; set; }
+    public abstract float BaseMovementSpeed { get; set; }
 }
 
 public abstract class Building : WorldObject;
 
 public class Bastion : Unit {
-    public override float Health { get; set; } = 1000;
-    public override float Defense { get; set; }
-    public override float AttackDamage { get; set; }
-    public override float AttackSpeed { get; set; }
-    public override float Accuracy { get; set; }
-    public override float MovementSpeed { get; set; }
-    public override float Evasion { get; set; }
+    public override float BaseHealth { get; set; } = 1000;
+    public override float BaseDefense { get; set; }
+    public override float BaseAttackDamage { get; set; }
+    public override float BaseAttackSpeed { get; set; }
+    public override float BaseAccuracy { get; set; }
+    public override float BaseEvasion { get; set; }
+    public override float BaseMovementSpeed { get; set; }
 }
 
 public class Bunker : Building {
-    public override float Health { get; set; } = 10000;
-    public override float Defense { get; set; }
-    public override float AttackDamage { get; set; }
-    public override float AttackSpeed { get; set; }
-    public override float Accuracy { get; set; }
+    public override float BaseHealth { get; set; } = 10000;
+    public override float BaseDefense { get; set; }
+    public override float BaseAttackDamage { get; set; }
+    public override float BaseAttackSpeed { get; set; }
+    public override float BaseAccuracy { get; set; }
 }
 
 public class Location {

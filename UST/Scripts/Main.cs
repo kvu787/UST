@@ -12,6 +12,17 @@ public partial class Main : Node {
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready() {
+        Unit bastion = new Bastion();
+        bastion.Health -= 1;
+
+        /*
+         * Max health
+         * Current health
+         * Base attack
+         *
+         * Healing can't increase current health greater than max health
+         */
+
         GD.Print("READY");
         GD.Print(ProjectSettings.GlobalizePath("user://"));
 
@@ -36,14 +47,8 @@ public partial class Main : Node {
 
     private void OnCommandInput(InputEvent @event) {
         if (@event is InputEventKey keyEvent && keyEvent is { Pressed: true, Keycode: Key.Enter, }) {
-            string text = this.CommandInput.Text.Trim();
+            this.CommandProcessor.Execute(this.CommandInput.Text.Trim());
             this.CommandInput.Clear();
-            if (!SaveFileConnected) {
-                GD.Print("You must connect a save file before executing any commands.");
-                return;
-            }
-
-            this.CommandProcessor.Execute(text);
         }
     }
 }

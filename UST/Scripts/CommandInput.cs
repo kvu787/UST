@@ -9,34 +9,36 @@ using System.Text.RegularExpressions;
 namespace UST;
 
 public class CommandProcessor {
-    private readonly RootCommand RootCommand;
     private readonly Argument<string> NameArgument = new("name");
     private readonly Option<string> NameOption = new("--name", "-n") { Required = true, };
     private readonly Option<string> Location1Option = new("--location1", "-l1") { Required = true, };
     private readonly Option<string> Location2Option = new("--location2", "-l2") { Required = true, };
 
+    private readonly RootCommand RootCommand = new("UST CLI");
+    private readonly Command AddCommand = new("add");
+    private readonly Command AddLocationCommand = new("location");
+    private readonly Command AddPathCommand = new("path");
+    private readonly Command ExitCommand = new("exit");
+    private readonly Command OpenCommand = new("open");
+
     public CommandProcessor() {
-        Command openCommand = new("open") { Arguments = { this.NameArgument, }, };
-        openCommand.SetAction(this.OpenAction);
+        this.RootCommand.Subcommands.Add(this.AddCommand);
+        {
+            this.AddCommand.Subcommands.Add(this.AddPathCommand);
+            this.AddCommand.Subcommands.Add(this.AddLocationCommand);
+        }
+        this.RootCommand.Subcommands.Add(this.ExitCommand);
+        this.RootCommand.Subcommands.Add(this.OpenCommand);
 
-        Command exitCommand = new("exit");
-        exitCommand.SetAction(this.ExitAction);
+        this.AddLocationCommand.Options.Add(this.NameOption);
+        this.AddPathCommand.Options.Add(this.Location1Option);
+        this.AddPathCommand.Options.Add(this.Location2Option);
+        this.OpenCommand.Arguments.Add(this.NameArgument);
 
-        Command addPathCommand = new("path") { Options = { this.Location1Option, this.Location2Option, }, };
-        addPathCommand.SetAction(this.AddPathAction);
-
-        Command addLocationCommand = new("location") { Options = { this.NameOption, }, };
-        addLocationCommand.SetAction(this.AddLocationAction);
-
-        Command addCommand = new("add") { Subcommands = { addLocationCommand, addPathCommand, }, };
-
-        this.RootCommand = new RootCommand("UST CLI") {
-            Subcommands = {
-                addCommand,
-                exitCommand,
-                openCommand,
-            },
-        };
+        this.AddLocationCommand.SetAction(this.AddLocationAction);
+        this.AddPathCommand.SetAction(this.AddPathAction);
+        this.ExitCommand.SetAction(this.ExitAction);
+        this.OpenCommand.SetAction(this.OpenAction);
     }
 
     private void OpenAction(ParseResult pr) {
@@ -73,6 +75,15 @@ public class CommandProcessor {
             .Select(x => x.Value)
             .Select(x => x.StartsWith("'", StringComparison.Ordinal) ? x[1..^1] : x)
             .ToList();
-        _ = this.RootCommand.Parse(tokens).Invoke();
+
+        ParseResult parseResult = this.RootCommand.Parse(tokens);
+        if (!Main.SaveFileConnected
+            && parseResult.CommandResult.Command != this.ExitCommand
+            && parseResult.CommandResult.Command != this.OpenCommand) {
+            GD.Print("You must open a save file before executing other commands.");
+            return;
+        }
+
+        _ = parseResult.Invoke();
     }
 }
