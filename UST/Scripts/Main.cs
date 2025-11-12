@@ -1,5 +1,4 @@
 using Godot;
-using UST.GameTypes;
 
 namespace UST;
 
@@ -12,23 +11,11 @@ public partial class Main : Node {
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready() {
-        Unit bastion = new Bastion();
-        bastion.Health -= 1;
-
-        /*
-         * Max health
-         * Current health
-         * Base attack
-         *
-         * Healing can't increase current health greater than max health
-         */
-
-        GD.Print("READY");
-        GD.Print(ProjectSettings.GlobalizePath("user://"));
+        GD.Print("Ready");
+        GD.Print($"Game data folder: {ProjectSettings.GlobalizePath("user://")}");
 
         MainInstance = this;
         this.Terminal = new();
-        Gold gold = new() { Name = "g1", Amount = 2000, };
 
         this.TerminalLineEdit = this.GetNode<LineEdit>("LineEdit");
         this.TerminalLineEdit.GuiInput += this.OnTerminalSubmit;

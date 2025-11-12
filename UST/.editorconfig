@@ -55,6 +55,19 @@ resharper_unused_type_global_highlighting = none
 # - Redundancies in Symbol Declarations: Type member is never used (non-private accessibility)
 resharper_unused_member_global_highlighting = none
 
+# - Misc: Convert to constant
+resharper_convert_to_constant_global_highlighting = none
+resharper_convert_to_constant_local_highlighting = none
+
+# todo
+resharper_member_can_be_private_global_highlighting = none
+resharper_unused_auto_property_accessor_global_highlighting = none
+resharper_member_can_be_made_static_local_highlighting = none
+## Field 'field' is never assigned to, and will always have its default value 'value'
+dotnet_diagnostic.CS0649.severity = none
+## The private field 'class member' is never used
+dotnet_diagnostic.CS0169.severity = none
+
 ###########################
 ### Code analysis rules ###
 ###########################

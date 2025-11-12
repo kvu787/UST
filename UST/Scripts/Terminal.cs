@@ -10,18 +10,29 @@ namespace UST;
 
 public class Terminal {
     private readonly Argument<string> NameArgument = new("name");
+
     private readonly Option<string> NameOption = new("--name", "-n") { Required = true, };
+    private readonly Option<string> LocationOption = new("--location", "-l") { Required = true, };
     private readonly Option<string> Location1Option = new("--location1", "-l1") { Required = true, };
     private readonly Option<string> Location2Option = new("--location2", "-l2") { Required = true, };
+    private readonly Option<string> IdOption = new("--id", "-i") { Required = true, };
 
     private readonly RootCommand RootCommand = new("UST CLI");
+
     private readonly Command AddCommand = new("add");
     private readonly Command AddLocationCommand = new("location");
+    private readonly Command MoveCommand = new("move");
     private readonly Command AddPathCommand = new("path");
     private readonly Command ExitCommand = new("exit");
     private readonly Command OpenCommand = new("open");
 
     public Terminal() {
+        this.SetupHierarchy();
+        this.SetupArgumentsAndOptions();
+        this.SetupActions();
+    }
+
+    private void SetupHierarchy() {
         this.RootCommand.Subcommands.Add(this.AddCommand);
         {
             this.AddCommand.Subcommands.Add(this.AddPathCommand);
@@ -29,12 +40,18 @@ public class Terminal {
         }
         this.RootCommand.Subcommands.Add(this.ExitCommand);
         this.RootCommand.Subcommands.Add(this.OpenCommand);
+    }
 
+    private void SetupArgumentsAndOptions() {
         this.AddLocationCommand.Options.Add(this.NameOption);
         this.AddPathCommand.Options.Add(this.Location1Option);
         this.AddPathCommand.Options.Add(this.Location2Option);
+        this.MoveCommand.Options.Add(this.IdOption);
+        this.MoveCommand.Options.Add(this.NameOption);
         this.OpenCommand.Arguments.Add(this.NameArgument);
+    }
 
+    private void SetupActions() {
         this.AddLocationCommand.SetAction(this.AddLocationAction);
         this.AddPathCommand.SetAction(this.AddPathAction);
         this.ExitCommand.SetAction(this.ExitAction);
