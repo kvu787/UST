@@ -33,7 +33,7 @@ public partial class Main : Node {
     }
 
     private void OnTerminalSubmit(InputEvent @event) {
-        if (@event is InputEventKey keyEvent && keyEvent is { Pressed: true, Keycode: Key.Enter, }) {
+        if (@event is InputEventKey keyEvent && keyEvent is { Pressed: true, Keycode: Key.Enter }) {
             this.Terminal.Execute(this.TerminalLineEdit.Text.Trim());
             this.TerminalLineEdit.Clear();
         }

@@ -11,11 +11,11 @@ namespace UST;
 public class Terminal {
     private readonly Argument<string> NameArgument = new("name");
 
-    private readonly Option<string> NameOption = new("--name", "-n") { Required = true, };
-    private readonly Option<string> LocationOption = new("--location", "-l") { Required = true, };
-    private readonly Option<string> Location1Option = new("--location1", "-l1") { Required = true, };
-    private readonly Option<string> Location2Option = new("--location2", "-l2") { Required = true, };
-    private readonly Option<string> IdOption = new("--id", "-i") { Required = true, };
+    private readonly Option<string> NameOption = new("--name", "-n") { Required = true };
+    private readonly Option<string> LocationOption = new("--location", "-l") { Required = true };
+    private readonly Option<string> Location1Option = new("--location1", "-l1") { Required = true };
+    private readonly Option<string> Location2Option = new("--location2", "-l2") { Required = true };
+    private readonly Option<string> IdOption = new("--id", "-i") { Required = true };
 
     private readonly RootCommand RootCommand = new("UST CLI");
 
@@ -60,7 +60,7 @@ public class Terminal {
 
     private void OpenAction(ParseResult pr) {
         string fileName = pr.GetValue(this.NameArgument);
-        if (fileName.IndexOfAny(['/', '\\',]) != -1) {
+        if (fileName.IndexOfAny(['/', '\\']) != -1) {
             GD.Print($"Error: File name must not contain slashes. File name: {fileName}.");
             return;
         }

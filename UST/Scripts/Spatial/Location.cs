@@ -6,4 +6,5 @@ namespace UST.Spatial;
 public class Location : IEntity {
     public Guid Id { get; set; }
     public string Name { get; set; }
+    public uint Team { get; set; }
 }
