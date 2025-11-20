@@ -26,27 +26,31 @@ public partial class Main : Node {
         this.TerminalLineEdit.FocusExited += () => this.TerminalLineEdit.PlaceholderText = "Click here. Type a command. Press ENTER to submit.";
     }
 
+    // Called every frame. 'delta' is the elapsed time since the previous frame.
+    public override void _Process(double delta) {
+    }
+
     /// <summary>
-    /// Returns a graph (vertices and edges)
+    /// Generates a randomly connected graph (vertices and edges)
     /// The graph is undirected
     /// Graph contains no islands
     /// The edges from a vertex to other vertices are randomly chosen
     /// Vertices are not allowed to have edges to self
     /// Vertices are not allowed to have more than one edge to another vertex
     /// </summary>
-    /// <param name="numLocations">the number of vertices</param>
+    /// <param name="numLocations"></param>
     /// <param name="probabilityAddEdge"></param>
-    /// <returns>a graph</returns>
+    /// <returns></returns>
     private static Dictionary<int, HashSet<int>> GenerateMap(int numLocations, float probabilityAddEdge) {
         if (numLocations < 1) {
-            throw new ArgumentException("Must have at least 1 location");
+            throw new ArgumentOutOfRangeException(nameof(numLocations), "Must have at least 1 location");
         }
 
         if (probabilityAddEdge is < 0 or > 1) {
             throw new ArgumentOutOfRangeException(nameof(probabilityAddEdge), "Must be between 0 and 1");
         }
 
-        Random random = new();
+        Random random = Random.Shared;
         HashSet<(int, int)> edges = [];
 
         for (int i = 1; i < numLocations; i++) {
@@ -74,10 +78,6 @@ public partial class Main : Node {
         }
 
         return graph;
-    }
-
-    // Called every frame. 'delta' is the elapsed time since the previous frame.
-    public override void _Process(double delta) {
     }
 
     public static void QuitGame() {
