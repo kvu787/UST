@@ -1,6 +1,7 @@
 using Godot;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace UST;
 
@@ -31,28 +32,90 @@ public partial class Main : Node {
         Random random = new();
 
         for (int i = 0; i < numLocations; i++) {
-            map.Add(i, []);
+            // Add the location
+            HashSet<int> connectedLocations = [];
+            map.Add(i, connectedLocations);
 
             // Create a pool of valid candidate nodes (all nodes except self)
-            List<int> candidates = [];
-            for (int j = 0; j < numLocations; j++) {
-                if (j != i) {
-                    candidates.Add(j);
-                }
-            }
+            List<int> candidates = Enumerable.Range(0, numLocations).Where(j => j != i).ToList();
 
-            // Randomly decide how many connections to add (1 to 4)
+            // Randomly decide how many connections to add
             int connectionCount = random.Next(numConnectionsRange.Item1, numConnectionsRange.Item2 + 1);
 
             // Randomly pick nodes from the candidates
             for (int k = 0; k < connectionCount; k++) {
                 int randomIndex = random.Next(candidates.Count);
-                _ = map[i].Add(candidates[randomIndex]);
+                _ = connectedLocations.Add(candidates[randomIndex]);
                 candidates.RemoveAt(randomIndex);
             }
         }
 
         return map;
+    }
+
+    /// <summary>
+    /// Returns a graph (vertices and edges)
+    /// The graph is undirected
+    /// Graph contains no islands
+    /// The edges from a vertex to other vertices are randomly chosen
+    /// Vertices are not allowed to have edges to self
+    /// Vertices are not allowed to have more than one edge to another vertex
+    /// </summary>
+    /// <param name="numLocations">the number of vertices</param>
+    /// <param name="probabilityAddEdge"></param>
+    /// <returns>a graph</returns>
+    private static Dictionary<int, HashSet<int>> GenerateMap(int numLocations, float probabilityAddEdge) {
+        if (numLocations < 1) {
+            throw new ArgumentException("Must have at least 1 location");
+        }
+        if (probabilityAddEdge is < 0 or > 1) {
+            throw new ArgumentOutOfRangeException(nameof(probabilityAddEdge), "Must be between 0 and 1");
+        }
+
+        Random random = new();
+        HashSet<(int, int)> edges = [];
+
+        for (int i = 1; i < numLocations; i++) {
+            int connectedLocation = random.Next(i);
+            (int, int) newEdge = (connectedLocation, i);
+            _ = edges.Add(newEdge);
+        }
+
+        for (int i = 0; i < numLocations; i++) {
+            for (int j = i + 1; j < numLocations; j++) {
+                if (random.NextDouble() < probabilityAddEdge) {
+                    _ = edges.Add((i, j));
+                }
+            }
+        }
+
+        Dictionary<int, HashSet<int>> graph = [];
+        for (int i = 0; i < numLocations; i++) {
+            graph[i] = [];
+        }
+
+        foreach ((int from, int to) in edges) {
+            _ = graph[from].Add(to);
+            _ = graph[to].Add(from);
+        }
+
+        return graph;
+    }
+
+    /// <summary>
+    /// Returns a graph (vertices and edges)
+    /// The graph is undirected
+    /// Each vertex has anywhere from numConnectionsRange.Item1 to numConnectionsRange.Item2 (inclusive) edges. This is randomly chosen for each vertex
+    /// For example, if you pass in numConnectionsRange=(2, 5), then a vertex has at least 2 edges and at most 5 edges
+    /// The edges from a vertex to other vertices are randomly chosen
+    /// Vertices are not allowed to have edges to self
+    /// Vertices are not allowed to have more than one edge to another vertex
+    /// </summary>
+    /// <param name="numLocations">the number of vertices</param>
+    /// <param name="numConnectionsRange"></param>
+    /// <returns>a graph</returns>
+    private static Dictionary<int, HashSet<int>> GenerateMap2(int numLocations, (int, int) numConnectionsRange) {
+        return null;
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
