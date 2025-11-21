@@ -1,5 +1,4 @@
 using Godot;
-using System;
 using System.Collections.Generic;
 
 namespace UST;
@@ -35,61 +34,11 @@ public partial class Main : Node {
         this.TerminalLineEdit.FocusEntered += () => this.TerminalLineEdit.PlaceholderText = "";
         this.TerminalLineEdit.FocusExited += () => this.TerminalLineEdit.PlaceholderText = "Click here. Type a command. Press ENTER to submit.";
 
-        this.map = GenerateMap(25, 0.1);
+        this.map = Graph.GenerateMap(25, 0.1);
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(double delta) {
-    }
-
-    /// <summary>
-    /// Generates a randomly connected graph (vertices and edges)
-    /// The graph is undirected
-    /// Graph contains no islands
-    /// The edges from a vertex to other vertices are randomly chosen
-    /// Vertices are not allowed to have edges to self
-    /// Vertices are not allowed to have more than one edge to another vertex
-    /// </summary>
-    /// <param name="numLocations"></param>
-    /// <param name="probabilityAddEdge"></param>
-    /// <returns></returns>
-    private static Dictionary<int, HashSet<int>> GenerateMap(int numLocations, double probabilityAddEdge) {
-        if (numLocations < 1) {
-            throw new ArgumentOutOfRangeException(nameof(numLocations), "Must have at least 1 location");
-        }
-
-        if (probabilityAddEdge is < 0 or > 1) {
-            throw new ArgumentOutOfRangeException(nameof(probabilityAddEdge), "Must be between 0 and 1");
-        }
-
-        Random random = Random.Shared;
-        HashSet<(int, int)> edges = [];
-
-        for (int i = 1; i < numLocations; i++) {
-            int connectedLocation = random.Next(i);
-            (int, int) newEdge = (connectedLocation, i);
-            _ = edges.Add(newEdge);
-        }
-
-        for (int i = 0; i < numLocations; i++) {
-            for (int j = i + 1; j < numLocations; j++) {
-                if (random.NextDouble() < probabilityAddEdge) {
-                    _ = edges.Add((i, j));
-                }
-            }
-        }
-
-        Dictionary<int, HashSet<int>> graph = [];
-        for (int i = 0; i < numLocations; i++) {
-            graph[i] = [];
-        }
-
-        foreach ((int from, int to) in edges) {
-            _ = graph[from].Add(to);
-            _ = graph[to].Add(from);
-        }
-
-        return graph;
     }
 
     public static void QuitGame() {
