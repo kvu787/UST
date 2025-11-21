@@ -3,16 +3,10 @@ using System.Collections.Generic;
 
 namespace UST;
 
-public interface IAutomaton {
-    public void ProcessFrame(double delta, Unit unit);
-}
-
-public class Unit {
-}
-
 public partial class Main : Node {
     private LineEdit TerminalLineEdit;
     private Terminal Terminal;
+
     public static bool SaveFileConnected { get; set; }
 
     // Game data
@@ -36,7 +30,7 @@ public partial class Main : Node {
         Place units on map
         */
         this.map = Graph.GenerateMap(10, 0.2);
-        this.teams = Graph.GenerateTeamMap(this.map, 0.5);
+        this.teams = Graph.GenerateTeamMap(this.map, 0.65);
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
