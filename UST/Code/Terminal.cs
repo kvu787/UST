@@ -26,7 +26,10 @@ public class Terminal {
     private readonly Command ExitCommand = new("exit");
     private readonly Command OpenCommand = new("open");
 
-    public Terminal() {
+    private Main main;
+
+    public Terminal(Main main) {
+        this.main = main;
         this.SetupHierarchy();
         this.SetupArgumentsAndOptions();
         this.SetupActions();
@@ -75,7 +78,7 @@ public class Terminal {
     }
 
     private void ExitAction(ParseResult _) {
-        Main.QuitGame();
+        this.main.GetTree().Quit();
     }
 
     private void AddPathAction(ParseResult pr) {

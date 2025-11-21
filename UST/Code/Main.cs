@@ -12,7 +12,6 @@ public class Unit {
 }
 
 public partial class Main : Node {
-    private static Main MainInstance;
     private LineEdit TerminalLineEdit;
     private Terminal Terminal;
     public static bool SaveFileConnected { get; set; }
@@ -25,8 +24,7 @@ public partial class Main : Node {
         GD.Print("Ready");
         GD.Print($"Game data folder: {ProjectSettings.GlobalizePath("user://")}");
 
-        MainInstance = this;
-        this.Terminal = new Terminal();
+        this.Terminal = new Terminal(this);
 
         this.TerminalLineEdit = this.GetNode<LineEdit>("LineEdit");
         this.TerminalLineEdit.GuiInput += this.OnTerminalSubmit;
@@ -39,10 +37,6 @@ public partial class Main : Node {
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(double delta) {
-    }
-
-    public static void QuitGame() {
-        MainInstance.GetTree().Quit();
     }
 
     private void OnTerminalSubmit(InputEvent @event) {
