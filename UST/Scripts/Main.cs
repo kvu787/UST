@@ -4,12 +4,22 @@ using System.Collections.Generic;
 
 namespace UST;
 
+public interface IAutomaton {
+    public void ProcessFrame(double delta, Unit unit);
+}
+
+public class Unit {
+
+}
+
 public partial class Main : Node {
     private static Main MainInstance;
     private LineEdit TerminalLineEdit;
     private Terminal Terminal;
-
     public static bool SaveFileConnected { get; set; }
+
+    // Game data
+    private Dictionary<int, HashSet<int>> map;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready() {
@@ -24,6 +34,8 @@ public partial class Main : Node {
 
         this.TerminalLineEdit.FocusEntered += () => this.TerminalLineEdit.PlaceholderText = "";
         this.TerminalLineEdit.FocusExited += () => this.TerminalLineEdit.PlaceholderText = "Click here. Type a command. Press ENTER to submit.";
+
+        this.map = GenerateMap(25, 0.1);
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -41,7 +53,7 @@ public partial class Main : Node {
     /// <param name="numLocations"></param>
     /// <param name="probabilityAddEdge"></param>
     /// <returns></returns>
-    private static Dictionary<int, HashSet<int>> GenerateMap(int numLocations, float probabilityAddEdge) {
+    private static Dictionary<int, HashSet<int>> GenerateMap(int numLocations, double probabilityAddEdge) {
         if (numLocations < 1) {
             throw new ArgumentOutOfRangeException(nameof(numLocations), "Must have at least 1 location");
         }

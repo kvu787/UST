@@ -73,7 +73,7 @@ resharper_convert_to_constant_global_highlighting = none
 resharper_convert_to_constant_local_highlighting = none
 
 # todo
-
+resharper_suggest_var_or_type_elsewhere_highlighting = none
 resharper_suggest_var_or_type_simple_types_highlighting = none
 resharper_suggest_var_or_type_built_in_types_highlighting = none
 resharper_collection_never_queried_local_highlighting = none
