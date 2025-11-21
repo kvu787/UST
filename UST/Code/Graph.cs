@@ -1,5 +1,7 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace UST;
 
@@ -63,5 +65,29 @@ public static class Graph {
         }
 
         return graph;
+    }
+
+    public static List<int> GenerateTeamMap(Dictionary<int, HashSet<int>> graph, double proportionOne) {
+        ArgumentNullException.ThrowIfNull(graph);
+        if (proportionOne is < 0 or > 1) {
+            throw new ArgumentOutOfRangeException(nameof(proportionOne), "Must be between 0 and 1");
+        }
+
+        int numLocations = graph.Count;
+        int teamOneCount = (int) Math.Floor(proportionOne * (double) numLocations);
+        List<int> teams = Enumerable.Repeat(-1, numLocations).ToList();
+        List<int> shuffledLocations = Enumerable.Range(0, numLocations).ToList();
+        Random.Shared.Shuffle(CollectionsMarshal.AsSpan(shuffledLocations));
+
+        for (int i = 0; i < shuffledLocations.Count; i++) {
+            int location = shuffledLocations[i];
+            if (i < teamOneCount) {
+                teams[location] = 1;
+            } else {
+                teams[location] = 2;
+            }
+        }
+
+        return teams;
     }
 }
