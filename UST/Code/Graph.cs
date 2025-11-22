@@ -90,4 +90,45 @@ public static class Graph {
 
         return teams;
     }
+
+    public static List<int> FindPathToNearestUnalliedLocation(Dictionary<int, HashSet<int>> graph, int startLocation, int thisTeam, List<int> teams) {
+        ArgumentNullException.ThrowIfNull(graph);
+        ArgumentNullException.ThrowIfNull(teams);
+
+        Queue<int> queue = new();
+        queue.Enqueue(startLocation);
+        Dictionary<int, int> parentMap = new() { { startLocation, -1 } };
+        int targetLocation = -1;
+        while (queue.Count > 0) {
+            int currentLocation = queue.Dequeue();
+            if (teams[currentLocation] != thisTeam) {
+                targetLocation = currentLocation;
+                break;
+            }
+
+            foreach (int neighbor in graph[currentLocation]) {
+                if (!parentMap.ContainsKey(neighbor)) {
+                    parentMap[neighbor] = currentLocation;
+                    queue.Enqueue(neighbor);
+                }
+            }
+        }
+
+        if (targetLocation == -1) {
+            return null;
+        } else {
+            List<int> path = [];
+            int current = targetLocation;
+            int parent = parentMap[current];
+            while (parent != -1) {
+                path.Add(current);
+                current = parent;
+                parent = parentMap[parent];
+            }
+
+            path.Reverse();
+
+            return path;
+        }
+    }
 }

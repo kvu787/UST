@@ -73,6 +73,9 @@ resharper_convert_to_constant_global_highlighting = none
 resharper_convert_to_constant_local_highlighting = none
 
 # todo
+resharper_redundant_if_else_block_highlighting = none
+resharper_can_simplify_dictionary_lookup_with_try_add_highlighting = none
+resharper_use_object_or_collection_initializer_highlighting = none
 resharper_suggest_var_or_type_elsewhere_highlighting = none
 resharper_suggest_var_or_type_simple_types_highlighting = none
 resharper_suggest_var_or_type_built_in_types_highlighting = none
@@ -102,7 +105,12 @@ dotnet_diagnostic.IDE0060.severity = none
 dotnet_diagnostic.IDE0052.severity = none
 ## Use collection expression for array
 dotnet_diagnostic.IDE0300.severity = none
+## Remove unnecessary cast
 dotnet_diagnostic.IDE0004.severity = none
+## Use object initializers
+dotnet_diagnostic.IDE0017.severity = none
+## Mark members as static
+dotnet_diagnostic.CA1822.severity = none
 
 ###########################
 ### Code analysis rules ###
