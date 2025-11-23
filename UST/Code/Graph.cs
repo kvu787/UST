@@ -117,18 +117,15 @@ public static class Graph {
         if (targetLocation == -1) {
             return null;
         } else {
-            List<int> path = [];
+            Stack<int> stack = new();
             int current = targetLocation;
-            int parent = parentMap[current];
-            while (parent != -1) {
-                path.Add(current);
-                current = parent;
-                parent = parentMap[parent];
+            while (current != -1) {
+                stack.Push(current);
+                current = parentMap[current];
             }
 
-            path.Reverse();
-
-            return path;
+            _ = stack.Pop();
+            return stack.ToList();
         }
     }
 }
