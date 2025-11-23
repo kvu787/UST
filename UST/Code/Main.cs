@@ -1,5 +1,4 @@
 using Godot;
-using System.Collections.Generic;
 
 namespace UST;
 
@@ -9,9 +8,7 @@ public partial class Main : Node {
 
     public static bool SaveFileConnected { get; set; }
 
-    // Game data
-    private Dictionary<int, HashSet<int>> map;
-    private List<int> teams;
+    private SaveData SaveData;
 
     // Called when the node enters the scene tree for the first time.
     public override void _Ready() {
@@ -29,8 +26,9 @@ public partial class Main : Node {
         Generate units
         Place units on map
         */
-        this.map = Graph.GenerateMap(10, 0.2);
-        this.teams = Graph.GenerateTeamMap(this.map, 0.65);
+        this.SaveData = new SaveData();
+        this.SaveData.Map = Graph.GenerateMap(10, 0.2);
+        this.SaveData.Teams = Graph.GenerateTeamMap(this.SaveData.Map, 0.65);
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
