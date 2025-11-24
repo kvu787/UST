@@ -26,13 +26,26 @@ public class Terminal {
     private readonly Command ExitCommand = new("exit");
     private readonly Command OpenCommand = new("open");
 
-    private Main main;
+    private Node Node;
+    private LineEdit LineEdit;
 
-    public Terminal(Main main) {
-        this.main = main;
+    public Terminal(Node node, LineEdit lineEdit) {
+        this.Node = node;
+        this.LineEdit = lineEdit;
         this.SetupHierarchy();
         this.SetupArgumentsAndOptions();
         this.SetupActions();
+
+        this.LineEdit.GuiInput += this.OnTerminalSubmit;
+        this.LineEdit.FocusEntered += () => this.LineEdit.PlaceholderText = "";
+        this.LineEdit.FocusExited += () => this.LineEdit.PlaceholderText = "Click here. Type a command. Press ENTER to submit.";
+    }
+
+    private void OnTerminalSubmit(InputEvent @event) {
+        if (@event is InputEventKey keyEvent && keyEvent is { Pressed: true, Keycode: Key.Enter }) {
+            this.Execute(this.LineEdit.Text.Trim());
+            this.LineEdit.Clear();
+        }
     }
 
     private void SetupHierarchy() {
@@ -74,11 +87,11 @@ public class Terminal {
             using FileStream _ = File.Create(filePath);
         }
 
-        Main.SaveFileConnected = true;
+        Globals.SaveFileConnected = true;
     }
 
     private void ExitAction(ParseResult _) {
-        this.main.GetTree().Quit();
+        this.Node.GetTree().Quit();
     }
 
     private void AddPathAction(ParseResult pr) {
@@ -97,7 +110,7 @@ public class Terminal {
             .ToList();
 
         ParseResult parseResult = this.RootCommand.Parse(tokens);
-        if (!Main.SaveFileConnected
+        if (!Globals.SaveFileConnected
             && parseResult.CommandResult.Command != this.ExitCommand
             && parseResult.CommandResult.Command != this.OpenCommand) {
             GD.Print("You must open a save file before executing other commands.");

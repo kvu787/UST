@@ -3,32 +3,20 @@ using Godot;
 namespace UST;
 
 public partial class Main : Node {
-    private LineEdit TerminalLineEdit;
-    private Terminal Terminal;
-
-    public static bool SaveFileConnected { get; set; }
-
-    private SaveData SaveData;
-
     // Called when the node enters the scene tree for the first time.
     public override void _Ready() {
         GD.Print("Ready");
         GD.Print($"Game data folder: {ProjectSettings.GlobalizePath("user://")}");
 
-        this.SetupTerminal();
-        this.SetupGameData();
-    }
+        Globals.Terminal = new Terminal(this, this.GetNode<LineEdit>("LineEdit"));
 
-    private void SetupGameData() {
         /*
         Generate the graph
         Generate mapping of graph vertices to team ownership (1 or 2)
         Generate units
         Place units on map
         */
-        this.SaveData = new SaveData();
-        this.SaveData.Map = Graph.GenerateMap(10, 0.2);
-        this.SaveData.Teams = Graph.GenerateTeamMap(this.SaveData.Map, 0.65);
+        Globals.SaveData = new SaveData(numLocations: 10, probabilityAddExtraEdge: 0.2, proportionTeamOne: 0.65);
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -37,20 +25,6 @@ public partial class Main : Node {
         Loop through and execute each unit's automaton
         if win condition is met, exit loop and print results
         */
-    }
-
-    private void SetupTerminal() {
-        this.Terminal = new Terminal(this);
-        this.TerminalLineEdit = this.GetNode<LineEdit>("LineEdit");
-        this.TerminalLineEdit.GuiInput += this.OnTerminalSubmit;
-        this.TerminalLineEdit.FocusEntered += () => this.TerminalLineEdit.PlaceholderText = "";
-        this.TerminalLineEdit.FocusExited += () => this.TerminalLineEdit.PlaceholderText = "Click here. Type a command. Press ENTER to submit.";
-    }
-
-    private void OnTerminalSubmit(InputEvent @event) {
-        if (@event is InputEventKey keyEvent && keyEvent is { Pressed: true, Keycode: Key.Enter }) {
-            this.Terminal.Execute(this.TerminalLineEdit.Text.Trim());
-            this.TerminalLineEdit.Clear();
-        }
+        Globals.SaveData.Process(delta);
     }
 }
