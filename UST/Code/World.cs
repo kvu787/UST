@@ -5,7 +5,7 @@ using System.Linq;
 
 namespace UST;
 
-public class SaveData {
+public class World {
     /// <summary>
     /// Maps each location to its neighbors.
     /// Guaranteed to be an undirected graph
@@ -35,7 +35,7 @@ public class SaveData {
     /// </summary>
     public Dictionary<int, HashSet<Unit>> UnitLocations { get; set; }
 
-    public SaveData(int numLocations, double probabilityAddExtraEdge, double proportionTeamOne) {
+    public World(int numLocations, double probabilityAddExtraEdge, double proportionTeamOne) {
         this.Map = Graph.GenerateMap(numLocations, probabilityAddExtraEdge);
         this.Teams = Graph.GenerateTeamMap(this.Map, proportionTeamOne);
     }
