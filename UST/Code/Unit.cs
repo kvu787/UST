@@ -15,7 +15,7 @@ public class Unit {
     /// <summary>
     /// Meters per second
     /// </summary>
-    public required double MovementSpeed { get; set; }
+    public required double MoveSpeed { get; set; }
     public required int Team { get; set; }
 
     public required bool Alive { get; set; }
@@ -32,7 +32,7 @@ public class Unit {
             units.Add(new Unit {
                 Health = Random.Shared.NextDouble(90, 110),
                 Attack = Random.Shared.NextDouble(4, 6),
-                MovementSpeed = Random.Shared.NextDouble(0.8, 1.2),
+                MoveSpeed = Random.Shared.NextDouble(0.8, 1.2),
                 Location = Random.Shared.Next(locationsCount),
                 Team = Random.Shared.Next(2),
                 Alive = false,
