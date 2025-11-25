@@ -7,28 +7,33 @@ namespace UST;
 
 public class SaveData {
     /// <summary>
-    /// Map of locations to neighbors
+    /// Maps each location to its neighbors.
     /// Guaranteed to be an undirected graph
     /// No self edges
     /// No duplicate edges
     /// Location IDs are from 0 to n
     /// There is at least 1 location
     /// </summary>
-    private Dictionary<int, HashSet<int>> Map;
+    private Dictionary<int, HashSet<int>> Map { get; set; }
 
     /// <summary>
-    /// Map of locations to what team owns them
+    /// Maps each location to the team that owns that location.
     /// Index = location ID
     /// Value = the team that owns the location
     /// </summary>
-    private List<int> Teams;
+    private List<int> Teams { get; set; }
 
-    private List<Unit> UnitRows;
+    /// <summary>
+    /// List of units.
+    /// The index has no significance.
+    /// The ordering has no significance.
+    /// </summary>
+    private List<Unit> Units { get; set; }
 
     /// <summary>
     /// Maps each location to the set of units in that location.
     /// </summary>
-    public Dictionary<int, HashSet<Unit>> UnitLocations { get; }
+    public Dictionary<int, HashSet<Unit>> UnitLocations { get; set; }
 
     public SaveData(int numLocations, double probabilityAddExtraEdge, double proportionTeamOne) {
         this.Map = Graph.GenerateMap(numLocations, probabilityAddExtraEdge);
@@ -49,7 +54,7 @@ public class SaveData {
         }
 
         // Move units
-        foreach (Unit unit in this.UnitRows) {
+        foreach (Unit unit in this.Units) {
             // States:
             // Initial state
             // Moving
