@@ -5,7 +5,7 @@ using System.Linq;
 namespace UST;
 
 public class UnitAutomaton {
-    public UnitRow UnitRow { get; set; }
+    public Unit Unit { get; set; }
     public SaveData SaveData { get; set; }
 
     public void Process(double delta) {
@@ -23,11 +23,11 @@ public class UnitAutomaton {
                 Find the path to the closest enemy unit
         */
 
-        int currentLocation = this.UnitRow.Location;
-        List<UnitRow> enemyUnits = this.SaveData.UnitLocations[currentLocation].Where(x => x.Location != currentLocation).ToList();
+        int currentLocation = this.Unit.Location;
+        List<Unit> enemyUnits = this.SaveData.UnitLocations[currentLocation].Where(x => x.Location != currentLocation).ToList();
         if (enemyUnits.Count > 0) {
-            UnitRow enemyUnit = enemyUnits[Random.Shared.Next(enemyUnits.Count)];
-            enemyUnit.Health -= delta * this.UnitRow.Attack;
+            Unit enemyUnit = enemyUnits[Random.Shared.Next(enemyUnits.Count)];
+            enemyUnit.Health -= delta * this.Unit.Attack;
             if (enemyUnit.Health <= 0) {
                 enemyUnit.Alive = false;
             }
