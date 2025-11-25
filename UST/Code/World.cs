@@ -33,7 +33,7 @@ public class World {
     /// <summary>
     /// Maps each location to the set of units in that location.
     /// </summary>
-    public Dictionary<int, HashSet<Unit>> UnitLocations { get; set; }
+    private Dictionary<int, HashSet<Unit>> UnitLocations { get; set; }
 
     public World(int numLocations, double probabilityAddExtraEdge, double proportionTeamOne) {
         this.Map = Graph.GenerateMap(numLocations, probabilityAddExtraEdge);
@@ -74,7 +74,7 @@ public class World {
 
                 unit.PreviousLocation = unit.Location;
             } else if (unit.State == UnitState.Moving) {
-                double moveDistance = unit.MovementSpeed * delta;
+                double moveDistance = unit.MoveSpeed * delta;
                 if (moveDistance >= (1 - unit.MoveProgress)) {
                     unit.Location = unit.TargetLocation;
                     unit.State = UnitState.Arrived;
