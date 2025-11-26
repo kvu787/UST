@@ -4,27 +4,29 @@ using System.Collections.Generic;
 namespace UST;
 
 public class Unit {
-    public required double Health { get; set; }
-    public required int Location { get; set; }
+    public double Health { get; set; }
 
     /// <summary>
-    /// Damage per second
+    /// Health points per second
     /// </summary>
-    public required double Attack { get; set; }
+    public double Attack { get; set; }
 
     /// <summary>
     /// Meters per second
     /// </summary>
-    public required double MoveSpeed { get; set; }
-    public required int Team { get; set; }
+    public int Team { get; set; }
 
-    public required bool Alive { get; set; }
+    public bool Alive { get; set; }
 
+    public double MoveSpeed { get; set; }
+    public int Location { get; set; }
     public int PreviousLocation { get; set; }
     public int TargetLocation { get; set; }
-    public double MoveProgress { get; set; }
 
-    public UnitState State { get; set; }
+    /// <summary>
+    /// How much distance the unit has traveled on the path from current to target location.
+    /// </summary>
+    public double MoveProgress { get; set; }
 
     public static List<Unit> GenerateUnits(int count, int locationsCount) {
         List<Unit> units = [];
@@ -43,10 +45,4 @@ public class Unit {
         }
         return units;
     }
-}
-
-public enum UnitState {
-    Start,
-    Moving,
-    Arrived,
 }

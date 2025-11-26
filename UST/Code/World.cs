@@ -35,6 +35,9 @@ public class World {
     /// </summary>
     private Dictionary<int, HashSet<Unit>> UnitLocations { get; set; }
 
+    // NOTE: This will probably change to per-edge distances.
+    private const double EdgeDistance = 3;
+
     public World(int numLocations, double probabilityAddExtraEdge, double proportionTeamOne) {
         this.Map = Graph.GenerateMap(numLocations, probabilityAddExtraEdge);
         this.Teams = Graph.GenerateTeamMap(this.Map, proportionTeamOne);
@@ -53,41 +56,65 @@ public class World {
             GD.Print($"Team {this.Teams[0]} Victory!");
         }
 
+        /*
+         * When the unit is first initialized, find the move target
+         * loop:
+         *   Move until time runs out, or target is reached
+         *   If time left and target is reached: update location, find next target, repeat loop
+         *   If just target is reached: update location, find next target, exit
+         *   If just time ran out: exit
+         */
+
         // Move units
         foreach (Unit unit in this.Units) {
-            // States:
-            // Initial state
-            // Moving
-            // Finished movement
-            if (unit.State == UnitState.Start) {
-                List<int> neighbors = this.Map[unit.Location].ToList();
-                if (unit.PreviousLocation == -1) {
-                    unit.TargetLocation = neighbors.GetRandom();
-                } else {
-                    if (neighbors.Count == 1 && neighbors[0] == unit.PreviousLocation) {
+            if (unit.PreviousLocation == -1) {
+                unit.MoveProgress = 0;
+                unit.PreviousLocation = unit.Location;
+                unit.TargetLocation = this.Map[unit.Location].ToList().GetRandom();
+            }
+
+            double remainingMoveDistance = delta * unit.MoveSpeed;
+            while (remainingMoveDistance > 0) {
+                double distanceToTarget = EdgeDistance - unit.MoveProgress;
+                if (remainingMoveDistance >= distanceToTarget) {
+                    unit.MoveProgress = 0;
+                    unit.PreviousLocation = unit.Location;
+                    unit.Location = unit.TargetLocation;
+                    List<int> candidateNeighbors = this.Map[unit.Location].Where(x => x != unit.PreviousLocation).ToList();
+                    if (candidateNeighbors.Count == 0) {
                         unit.TargetLocation = unit.PreviousLocation;
                     } else {
-                        _ = neighbors.Remove(unit.PreviousLocation);
-                        unit.TargetLocation = neighbors.GetRandom();
+                        unit.TargetLocation = candidateNeighbors.GetRandom();
                     }
-                }
-
-                unit.PreviousLocation = unit.Location;
-            } else if (unit.State == UnitState.Moving) {
-                double moveDistance = unit.MoveSpeed * delta;
-                if (moveDistance >= (1 - unit.MoveProgress)) {
-                    unit.Location = unit.TargetLocation;
-                    unit.State = UnitState.Arrived;
+                    remainingMoveDistance -= distanceToTarget;
                 } else {
-                    unit.MoveProgress += moveDistance;
+                    unit.MoveProgress += remainingMoveDistance;
+                    remainingMoveDistance = 0;
                 }
-            } else if (unit.State == UnitState.Arrived) {
-                // decide next location
-            } else {
-                throw new InvalidOperationException($"Unrecognized state: {unit.State}");
             }
         }
 
         // Attack units
+        // Any opposing units in the same location will attack each other
+        foreach ((_, HashSet<Unit> units) in this.UnitLocations) {
+            List<IGrouping<int, Unit>> teamGroups = units.GroupBy(x => x.Team).ToList();
+            if (teamGroups.Count < 2) {
+                continue;
+            }
+
+            // For each team:
+            // Accumulate total damage
+            // Distribute among units from different teams
+            foreach (IGrouping<int, Unit> teamGroup in teamGroups) {
+                int ourTeam = teamGroup.Key;
+                List<Unit> ourUnits = teamGroup.ToList();
+                double totalDamage = ourUnits.Sum(x => x.Attack * delta);
+                List<Unit> enemyUnits = teamGroups.Where(x => x.Key != ourTeam).Select(x => x.ToList()).SelectMany(x => x).ToList();
+                List<double> damageSplits = totalDamage.Split(enemyUnits.Count);
+                for (int i = 0; i < enemyUnits.Count; i++) {
+                    enemyUnits[i].Health -= damageSplits[i];
+                }
+            }
+        }
     }
 }

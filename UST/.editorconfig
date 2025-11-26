@@ -76,6 +76,7 @@ resharper_convert_to_constant_global_highlighting = none
 resharper_convert_to_constant_local_highlighting = none
 
 # todo
+resharper_convert_if_statement_to_conditional_ternary_expression_highlighting = none
 resharper_property_can_be_made_init_only_global_highlighting = none
 resharper_collection_never_updated_global_highlighting = none
 resharper_field_can_be_made_read_only_local_highlighting = none
