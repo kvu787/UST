@@ -76,6 +76,10 @@ resharper_convert_to_constant_global_highlighting = none
 resharper_convert_to_constant_local_highlighting = none
 
 # todo
+resharper_redundant_using_directive_global_highlighting = error
+resharper_redundant_using_directive_highlighting = error
+resharper_collection_never_queried_global_highlighting = none
+resharper_collection_never_updated_local_highlighting = none
 resharper_convert_if_statement_to_conditional_ternary_expression_highlighting = none
 resharper_property_can_be_made_init_only_global_highlighting = none
 resharper_collection_never_updated_global_highlighting = none
@@ -124,6 +128,9 @@ dotnet_diagnostic.IDE0047.severity = none
 dotnet_diagnostic.IDE0048.severity = none
 ## Use conditional expression for return
 dotnet_diagnostic.IDE0046.severity = none
+## Remove unnecessary using directives
+## I can't get this to cause a build error. I tried the GenerateDocumentationFile csproj workaround. I also tried in Visual Studio.
+dotnet_diagnostic.IDE0005.severity = error
 
 ###########################
 ### Code analysis rules ###

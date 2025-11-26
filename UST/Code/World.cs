@@ -1,5 +1,4 @@
 using Godot;
-using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -14,26 +13,26 @@ public class World {
     /// Location IDs are from 0 to n
     /// There is at least 1 location
     /// </summary>
-    private Dictionary<int, HashSet<int>> Map { get; set; }
+    private Dictionary<int, HashSet<int>> Map;
 
     /// <summary>
     /// Maps each location to the team that owns that location.
     /// Index = location ID
     /// Value = the team that owns the location
     /// </summary>
-    private List<int> Teams { get; set; }
+    private List<int> Teams;
 
     /// <summary>
     /// List of units.
     /// The index has no significance.
     /// The ordering has no significance.
     /// </summary>
-    private List<Unit> Units { get; set; }
+    private List<Unit> Units;
 
     /// <summary>
     /// Maps each location to the set of units in that location.
     /// </summary>
-    private Dictionary<int, HashSet<Unit>> UnitLocations { get; set; }
+    private Dictionary<int, HashSet<Unit>> UnitLocations;
 
     // NOTE: This will probably change to per-edge distances.
     private const double EdgeDistance = 3;
@@ -105,9 +104,9 @@ public class World {
             // For each team:
             // Accumulate total damage
             // Distribute among units from different teams
-            foreach (IGrouping<int, Unit> teamGroup in teamGroups) {
-                int ourTeam = teamGroup.Key;
-                List<Unit> ourUnits = teamGroup.ToList();
+            foreach (IGrouping<int, Unit> ourTeamGroup in teamGroups) {
+                int ourTeam = ourTeamGroup.Key;
+                List<Unit> ourUnits = ourTeamGroup.ToList();
                 double totalDamage = ourUnits.Sum(x => x.Attack * delta);
                 List<Unit> enemyUnits = teamGroups.Where(x => x.Key != ourTeam).Select(x => x.ToList()).SelectMany(x => x).ToList();
                 List<double> damageSplits = totalDamage.Split(enemyUnits.Count);
