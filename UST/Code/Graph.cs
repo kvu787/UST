@@ -74,7 +74,7 @@ public static class Graph {
         }
 
         int numLocations = graph.Count;
-        int teamOneCount = (int) Math.Floor(proportionOne * (double) numLocations);
+        int teamOneCount = (int)Math.Floor(proportionOne * (double)numLocations);
         List<int> teams = Enumerable.Repeat(-1, numLocations).ToList();
         List<int> shuffledLocations = Enumerable.Range(0, numLocations).ToList();
         Random.Shared.Shuffle(CollectionsMarshal.AsSpan(shuffledLocations));

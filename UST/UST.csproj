@@ -6,17 +6,10 @@
         <!-- I assume this is required by Godot -->
         <EnableDynamicLoading>true</EnableDynamicLoading>
 
-        <AnalysisLevel>latest</AnalysisLevel>
-        <AnalysisMode>All</AnalysisMode>
+        <AnalysisLevel>latest-All</AnalysisLevel>
         <CodeAnalysisTreatWarningsAsErrors>true</CodeAnalysisTreatWarningsAsErrors>
         <EnforceCodeStyleInBuild>true</EnforceCodeStyleInBuild>
-        <TreatWarningsAsErrors>true</TreatWarningsAsErrors>
-
-        <!-- Required to enable IDE0005 (unnecessary usings), see https://github.com/dotnet/roslyn/issues/41640 -->
-        <GenerateDocumentationFile>true</GenerateDocumentationFile>
-
-        <!-- Disable CS1591: Missing XML comment for publicly visible type or member 'Type_or_Member' -->
-        <NoWarn>1591</NoWarn>
+        <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     </PropertyGroup>
     <ItemGroup>
         <PackageReference Include="System.CommandLine" Version="2.0.0-rc.2.25502.107" />

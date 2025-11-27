@@ -1,5 +1,4 @@
 using Godot;
-using System;
 using System.Collections.Generic;
 using System.CommandLine;
 using System.IO;
@@ -8,7 +7,7 @@ using System.Text.RegularExpressions;
 
 namespace UST;
 
-public class Terminal {
+public partial class Terminal {
     private readonly Argument<string> NameArgument = new("name");
 
     private readonly Option<string> NameOption = new("--name", "-n") { Required = true };
@@ -104,9 +103,9 @@ public class Terminal {
 
     public void Execute(string input) {
         // Test: tater 'tater' 'ta te r' -tater '' --tater -t
-        List<string> tokens = Regex.Matches(input, @"('[^']*')|([^' ]+)")
+        List<string> tokens = TokenRegex().Matches(input)
             .Select(x => x.Value)
-            .Select(x => x.StartsWith("'", StringComparison.Ordinal) ? x[1..^1] : x)
+            .Select(x => x.StartsWith('\'') ? x[1..^1] : x)
             .ToList();
 
         ParseResult parseResult = this.RootCommand.Parse(tokens);
@@ -119,4 +118,7 @@ public class Terminal {
 
         _ = parseResult.Invoke();
     }
+
+    [GeneratedRegex(@"('[^']*')|([^' ]+)")]
+    private static partial Regex TokenRegex();
 }

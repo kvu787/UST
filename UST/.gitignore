@@ -4,3 +4,6 @@
 
 # JetBrains
 /UST.sln.DotSettings.user
+
+# Visual Studio
+/.vs/

@@ -8,252 +8,41 @@ indent_size = 4
 indent_style = space
 indent_size = 4
 
-#############################
-### JetBrains Rider rules ###
-#############################
+dotnet_analyzer_diagnostic.severity = error
 
-# JetBrains Rider reference:
-# https://www.jetbrains.com/help/rider/EditorConfig_Index.html
-# https://www.jetbrains.com/help/rider/Reference__Code_Inspections_CSHARP.html
-# https://www.jetbrains.com/help/resharper/EditorConfig_Index.html
-# https://www.jetbrains.com/help/resharper/Reference__Code_Inspections_CSHARP.html
-
-# - Auto-wrap lines
-# I can't find this in the online documentation.
-wrap_lines = false
-
-# formatting stuff
-brace_style = end_of_line
-blank_lines_after_block_statements = 0
-
-# Enforce trailing commas
-trailing_comma_in_multiline_lists = true
-trailing_comma_in_singleline_lists = false
-resharper_arrange_trailing_comma_in_multiline_lists_highlighting = error
-resharper_arrange_trailing_comma_in_singleline_lists_highlighting = error
-
-# - Common Practices and Code Improvements: Get-only auto-property is never assigned
-resharper_unassigned_get_only_auto_property_highlighting = none
-
-# - Common Practices and Code Improvements: Member can be made private (non-private accessibility)
-resharper_member_can_be_private_global_highlighting = none
-
-# - Common Practices and Code Improvements: Member can be made private (private accessibility)
-resharper_member_can_be_private_local_highlighting = none
-
-# - Common Practices and Code Improvements: Member can be made static (shared) (non-private accessibility)
-resharper_member_can_be_made_static_global_highlighting = none
-
-# - Common Practices and Code Improvements: Member can be made static (shared) (private accessibility)
-resharper_member_can_be_made_static_local_highlighting = none
-
-# - Constraints Violations: Inconsistent Naming
-resharper_inconsistent_naming_highlighting = none
-
-# - Constraints Violations: Namespace does not correspond to file location
-resharper_check_namespace_highlighting = none
-
-# - Language Usage Opportunities: Invert 'if' statement to reduce nesting
-resharper_invert_if_highlighting = none
-
-# - Language Usage Opportunities: Merge null/pattern checks into complex pattern
-resharper_merge_into_pattern_highlighting = none
-
-# - Potential Code Quality Issues: Class is never instantiated (non-private accessibility)
-resharper_class_never_instantiated_global_highlighting = none
-
-# - Redundancies in Code: Redundant verbatim string prefix
-resharper_redundant_verbatim_string_prefix_highlighting = none
-
-# - Redundancies in Symbol Declarations: Type is never used (non-private accessibility)
-resharper_unused_type_global_highlighting = none
-
-# - Redundancies in Symbol Declarations: Type member is never used (non-private accessibility)
-resharper_unused_member_global_highlighting = none
-
-# - Misc: Convert to constant
-resharper_convert_to_constant_global_highlighting = none
-resharper_convert_to_constant_local_highlighting = none
-
-# todo
-resharper_redundant_using_directive_global_highlighting = error
-resharper_redundant_using_directive_highlighting = error
-resharper_collection_never_queried_global_highlighting = none
-resharper_collection_never_updated_local_highlighting = none
-resharper_convert_if_statement_to_conditional_ternary_expression_highlighting = none
-resharper_property_can_be_made_init_only_global_highlighting = none
-resharper_collection_never_updated_global_highlighting = none
-resharper_field_can_be_made_read_only_local_highlighting = none
-resharper_redundant_if_else_block_highlighting = none
-resharper_can_simplify_dictionary_lookup_with_try_add_highlighting = none
-resharper_use_object_or_collection_initializer_highlighting = none
-resharper_suggest_var_or_type_elsewhere_highlighting = none
-resharper_suggest_var_or_type_simple_types_highlighting = none
-resharper_suggest_var_or_type_built_in_types_highlighting = none
-resharper_collection_never_queried_local_highlighting = none
-resharper_arrange_redundant_parentheses_highlighting = none
-resharper_possible_null_reference_exception_highlighting = none
-resharper_unassigned_readonly_field_compiler_highlighting = none
-resharper_unassigned_readonly_field_highlighting = none
-resharper_unused_parameter_local_highlighting = none
-resharper_unused_member_local_highlighting = none
-resharper_convert_if_statement_to_switch_statement_highlighting = none
-resharper_unused_auto_property_accessor_global_highlighting = none
-resharper_unused_auto_property_accessor_local_highlighting = none
-resharper_redundant_cast_highlighting = none
-resharper_not_accessed_field_local_highlighting = none
-## Field 'field' is never assigned to, and will always have its default value 'value'
-dotnet_diagnostic.CS0649.severity = none
-## The private field 'class member' is never used
-dotnet_diagnostic.CS0169.severity = none
-## Do not use insecure randomness
-dotnet_diagnostic.CA5394.severity = none
-## Use collection expression for fluent
-dotnet_diagnostic.IDE0305.severity = none
-## Remove unused parameter
-dotnet_diagnostic.IDE0060.severity = none
-## Remove unread private member
-dotnet_diagnostic.IDE0052.severity = none
-## Use collection expression for array
-dotnet_diagnostic.IDE0300.severity = none
-## Remove unnecessary cast
-dotnet_diagnostic.IDE0004.severity = none
-## Use object initializers
-dotnet_diagnostic.IDE0017.severity = none
-## Mark members as static
-dotnet_diagnostic.CA1822.severity = none
-## Remove unnecessary parentheses
-dotnet_diagnostic.IDE0047.severity = none
-## Add parentheses for clarity
-dotnet_diagnostic.IDE0048.severity = none
-## Use conditional expression for return
-dotnet_diagnostic.IDE0046.severity = none
-## Remove unnecessary using directives
-## I can't get this to cause a build error. I tried the GenerateDocumentationFile csproj workaround. I also tried in Visual Studio.
-dotnet_diagnostic.IDE0005.severity = error
-
-###########################
-### Code analysis rules ###
-###########################
-
-# - CA1002: Do not expose generic lists
-dotnet_diagnostic.CA1002.severity = none
-
-# - CA1008: Enums should have zero value
-dotnet_diagnostic.CA1008.severity = none
-
-# - CA1823: Avoid unused private fields
-dotnet_diagnostic.CA1823.severity = none
-
-# - CA1865: Use 'string.Method(char)' instead of 'string.Method(string)' for string with single char
-dotnet_diagnostic.CA1865.severity = none
-
-# - CA2213: Disposable fields should be disposed
-dotnet_diagnostic.CA2213.severity = none
-
-# - CA2227: Collection properties should be read only
-dotnet_diagnostic.CA2227.severity = none
-
-########################
-### Code style rules ###
-########################
-
-# Treat all IDE* warnings as errors.
-# Later lines may override this for specific rules.
-dotnet_analyzer_diagnostic.category-Style.severity = error
-
-# - IDE0003: Remove this or Me qualification
-dotnet_diagnostic.IDE0003.severity = none
-
-# + IDE0009: Add this or Me qualification, for everything
-dotnet_diagnostic.IDE0009.severity = error
+# IDE0003 and IDE0009: this and Me preferences
 dotnet_style_qualification_for_field = true
 dotnet_style_qualification_for_property = true
 dotnet_style_qualification_for_event = true
 dotnet_style_qualification_for_method = true
 
-# - IDE0040: Add accessibility modifiers
-dotnet_diagnostic.IDE0040.severity = none
-
-# - IDE0044: Add readonly modifier
-dotnet_diagnostic.IDE0044.severity = none
-
-# - IDE0045: Convert to conditional expression
-dotnet_diagnostic.IDE0045.severity = none
-
-# - IDE0051: Remove unused private member
-dotnet_diagnostic.IDE0051.severity = none
-
-# + IDE0065: 'using' directive placement
-dotnet_diagnostic.IDE0065.severity = error
-csharp_using_directive_placement = outside_namespace
-
-# - IDE0130: Namespace does not match folder structure
-dotnet_diagnostic.IDE0130.severity = none
-dotnet_style_namespace_match_folder = false
-
-# - IDE0160: Use block-scoped namespace
-dotnet_diagnostic.IDE0160.severity = none
-
-# + IDE0161: Use file-scoped namespace
-dotnet_diagnostic.IDE0161.severity = error
+# IDE0160 and IDE0161: Namespace declaration preferences
 csharp_style_namespace_declarations = file_scoped
 
-# - IDE0270: Null check can be simplified (if null check)
-dotnet_diagnostic.IDE0270.severity = none
+# IDE0130: Namespace does not match folder structure
+dotnet_style_namespace_match_folder = false
 
-#############################
-### Code formatting rules ###
-#############################
+# CA1002: Do not expose generic lists
+dotnet_diagnostic.CA1002.severity = none
 
-# + IDE0055: Formatting rules
+# CA5394: Do not use insecure randomness
+dotnet_diagnostic.CA5394.severity = none
+
+dotnet_diagnostic.IDE0305.severity = none
+
+dotnet_diagnostic.IDE0044.severity = warning
+dotnet_diagnostic.IDE0045.severity = warning
+dotnet_diagnostic.IDE0046.severity = warning
+dotnet_diagnostic.IDE0004.severity = warning
+dotnet_diagnostic.IDE0047.severity = warning
+dotnet_diagnostic.IDE0048.severity = warning
+dotnet_diagnostic.IDE0052.severity = warning
+dotnet_diagnostic.CA1823.severity = warning
+
+
+#############
 dotnet_diagnostic.IDE0055.severity = error
-
-## Using directive options
 dotnet_sort_system_directives_first = false
-dotnet_separate_import_directive_groups = false
 
-## New-line options
 csharp_new_line_before_open_brace = none
 csharp_new_line_before_else = false
-csharp_new_line_before_catch = false
-csharp_new_line_before_finally = false
-csharp_new_line_before_members_in_object_initializers = false
-csharp_new_line_before_members_in_anonymous_types = false
-csharp_new_line_between_query_expression_clauses = false
-
-## Indentation options
-csharp_indent_case_contents = true
-csharp_indent_switch_labels = true
-csharp_indent_labels = no_change
-csharp_indent_block_contents = true
-csharp_indent_braces = false
-csharp_indent_case_contents_when_block = false
-
-## Spacing options
-csharp_space_after_cast = true
-csharp_space_after_keywords_in_control_flow_statements = true
-csharp_space_between_parentheses = false
-csharp_space_before_colon_in_inheritance_clause = true
-csharp_space_after_colon_in_inheritance_clause = true
-csharp_space_around_binary_operators = before_and_after
-csharp_space_between_method_declaration_parameter_list_parentheses = false
-csharp_space_between_method_declaration_empty_parameter_list_parentheses = false
-csharp_space_between_method_declaration_name_and_open_parenthesis = false
-csharp_space_between_method_call_parameter_list_parentheses = false
-csharp_space_between_method_call_empty_parameter_list_parentheses = false
-csharp_space_between_method_call_name_and_opening_parenthesis = false
-csharp_space_after_comma = true
-csharp_space_before_comma = false
-csharp_space_after_dot = false
-csharp_space_before_dot = false
-csharp_space_after_semicolon_in_for_statement = true
-csharp_space_before_semicolon_in_for_statement = false
-csharp_space_around_declaration_statements = false
-csharp_space_before_open_square_brackets = false
-csharp_space_between_empty_square_brackets = false
-csharp_space_between_square_brackets = false
-
-## Wrap options
-csharp_preserve_single_line_statements = false
-csharp_preserve_single_line_blocks = true
