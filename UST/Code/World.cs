@@ -30,7 +30,7 @@ public class World {
     /// The index has no significance.
     /// The ordering has no significance.
     /// </summary>
-    private readonly List<Unit> Units;
+    public List<Unit> Units { get; }
 
     /// <summary>
     /// Maps each location to the set of units in that location.
@@ -44,7 +44,7 @@ public class World {
         this.LocationsCount = 5;
         double probabilityAddExtraEdge = 1;
         double proportionTeamOne = 0.5;
-        int unitsCount = 1;
+        int unitsCount = 5;
 
         this.Map = Graph.GenerateMap(this.LocationsCount, probabilityAddExtraEdge);
         GD.Print("Generated map:");
@@ -116,11 +116,6 @@ public class World {
         }
 
         this.UpdateUnitLocations();
-
-        // Print each unit and location
-        foreach (Unit unit in this.Units) {
-            GD.Print($"Unit {unit.Id}: PreviousLocation={unit.PreviousLocation}, Location={unit.Location}, TargetLocation={unit.TargetLocation}, MoveProgress={unit.MoveProgress:0.0000}");
-        }
 
         // Attack units
         // Any opposing units in the same location will attack each other
