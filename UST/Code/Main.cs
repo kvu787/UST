@@ -20,7 +20,7 @@ public partial class Main : Node {
         GD.Print($"Game data folder: {ProjectSettings.GlobalizePath("user://")}");
 
         Globals.Terminal = new Terminal(this, this.GetNode<LineEdit>("LineEdit"));
-        Globals.World = new World(numLocations: 10, probabilityAddExtraEdge: 0.2, proportionTeamOne: 0.65);
+        Globals.World = new World();
     }
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.

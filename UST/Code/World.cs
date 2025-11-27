@@ -1,4 +1,5 @@
 using Godot;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 
@@ -13,57 +14,66 @@ public class World {
     /// Location IDs are from 0 to n
     /// There is at least 1 location
     /// </summary>
-    private Dictionary<int, HashSet<int>> Map;
+    private readonly Dictionary<int, HashSet<int>> Map;
 
     /// <summary>
     /// Maps each location to the team that owns that location.
     /// Index = location ID
     /// Value = the team that owns the location
     /// </summary>
-    private List<int> Teams;
+    private readonly List<int> Teams;
 
     /// <summary>
     /// List of units.
     /// The index has no significance.
     /// The ordering has no significance.
     /// </summary>
-    private List<Unit> Units;
+    private readonly List<Unit> Units;
 
     /// <summary>
     /// Maps each location to the set of units in that location.
     /// </summary>
-    private Dictionary<int, HashSet<Unit>> UnitLocations;
+    private readonly Dictionary<int, HashSet<Unit>> UnitLocations;
 
     // NOTE: This will probably change to per-edge distances.
     private const double EdgeDistance = 3;
 
-    public World(int numLocations, double probabilityAddExtraEdge, double proportionTeamOne) {
-        this.Map = Graph.GenerateMap(numLocations, probabilityAddExtraEdge);
+    public World() {
+        int locationsCount = 10;
+        double probabilityAddExtraEdge = 0.2;
+        double proportionTeamOne = 0.5;
+        int unitsCount = 1;
+
+        this.Map = Graph.GenerateMap(locationsCount, probabilityAddExtraEdge);
         this.Teams = Graph.GenerateTeamMap(this.Map, proportionTeamOne);
+        this.Units = GenerateUnits(unitsCount, locationsCount);
+        this.UnitLocations = [];
+        for (int i = 0; i < this.Map.Count; i++) {
+            this.UnitLocations[i] = [];
+        }
+        foreach (Unit unit in this.Units) {
+            _ = this.UnitLocations[unit.Location].Add(unit);
+        }
+    }
+
+    private static List<Unit> GenerateUnits(int unitsCount, int locationsCount) {
+        List<Unit> units = [];
+        for (int i = 0; i < unitsCount; i++) {
+            units.Add(new Unit {
+                Health = Random.Shared.NextDouble(90, 110),
+                Attack = Random.Shared.NextDouble(4, 6),
+                MoveSpeed = Random.Shared.NextDouble(0.8, 1.2),
+                Team = Random.Shared.Next(2),
+                Location = Random.Shared.Next(locationsCount),
+                PreviousLocation = -1,
+                TargetLocation = -1,
+                MoveProgress = -1,
+            });
+        }
+        return units;
     }
 
     public void Process(double delta) {
-        // Capture locations that contain units from one team
-        foreach ((int location, HashSet<Unit> units) in this.UnitLocations) {
-            if (units.GroupBy(x => x.Team).Count() == 1) {
-                this.Teams[location] = units.First().Team;
-            }
-        }
-
-        // Check if all locations captured by one team
-        if (this.Teams.GroupBy(x => x).Count() == 1) {
-            GD.Print($"Team {this.Teams[0]} Victory!");
-        }
-
-        /*
-         * When the unit is first initialized, find the move target
-         * loop:
-         *   Move until time runs out, or target is reached
-         *   If time left and target is reached: update location, find next target, repeat loop
-         *   If just target is reached: update location, find next target, exit
-         *   If just time ran out: exit
-         */
-
         // Move units
         foreach (Unit unit in this.Units) {
             if (unit.PreviousLocation == -1) {
@@ -114,6 +124,22 @@ public class World {
                     enemyUnits[i].Health -= damageSplits[i];
                 }
             }
+        }
+    }
+
+    private void CaptureLocations() {
+        // Capture locations that contain units from one team
+        foreach ((int location, HashSet<Unit> units) in this.UnitLocations) {
+            if (units.GroupBy(x => x.Team).Count() == 1) {
+                this.Teams[location] = units.First().Team;
+            }
+        }
+    }
+
+    private void CheckVictory() {
+        // Check if all locations captured by one team
+        if (this.Teams.GroupBy(x => x).Count() == 1) {
+            GD.Print($"Team {this.Teams[0]} Victory!");
         }
     }
 }
