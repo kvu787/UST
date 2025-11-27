@@ -6,6 +6,8 @@ using System.Linq;
 namespace UST;
 
 public class World {
+    private readonly int LocationsCount;
+
     /// <summary>
     /// Maps each location to its neighbors.
     /// Guaranteed to be an undirected graph
@@ -39,17 +41,26 @@ public class World {
     private const double EdgeDistance = 3;
 
     public World() {
-        int locationsCount = 10;
-        double probabilityAddExtraEdge = 0.2;
+        this.LocationsCount = 5;
+        double probabilityAddExtraEdge = 1;
         double proportionTeamOne = 0.5;
         int unitsCount = 1;
 
-        this.Map = Graph.GenerateMap(locationsCount, probabilityAddExtraEdge);
-        this.Teams = Graph.GenerateTeamMap(this.Map, proportionTeamOne);
-        this.Units = GenerateUnits(unitsCount, locationsCount);
+        this.Map = Graph.GenerateMap(this.LocationsCount, probabilityAddExtraEdge);
+        GD.Print("Generated map:");
+        GD.Print(Graph.MapToString(this.Map));
+        //this.Teams = Graph.GenerateTeamMap(this.Map, proportionTeamOne);
+        this.Units = GenerateUnits(unitsCount, this.LocationsCount);
         this.UnitLocations = [];
         for (int i = 0; i < this.Map.Count; i++) {
             this.UnitLocations[i] = [];
+        }
+        this.UpdateUnitLocations();
+    }
+
+    private void UpdateUnitLocations() {
+        foreach (HashSet<Unit> units in this.UnitLocations.Values) {
+            units.Clear();
         }
         foreach (Unit unit in this.Units) {
             _ = this.UnitLocations[unit.Location].Add(unit);
@@ -60,6 +71,7 @@ public class World {
         List<Unit> units = [];
         for (int i = 0; i < unitsCount; i++) {
             units.Add(new Unit {
+                Id = i,
                 Health = Random.Shared.NextDouble(90, 110),
                 Attack = Random.Shared.NextDouble(4, 6),
                 MoveSpeed = Random.Shared.NextDouble(0.8, 1.2),
@@ -79,7 +91,7 @@ public class World {
             if (unit.PreviousLocation == -1) {
                 unit.MoveProgress = 0;
                 unit.PreviousLocation = unit.Location;
-                unit.TargetLocation = this.Map[unit.Location].ToList().GetRandom();
+                unit.TargetLocation = this.Map[unit.Location].ToList().PickRandom();
             }
 
             double remainingMoveDistance = delta * unit.MoveSpeed;
@@ -93,7 +105,7 @@ public class World {
                     if (candidateNeighbors.Count == 0) {
                         unit.TargetLocation = unit.PreviousLocation;
                     } else {
-                        unit.TargetLocation = candidateNeighbors.GetRandom();
+                        unit.TargetLocation = candidateNeighbors.PickRandom();
                     }
                     remainingMoveDistance -= distanceToTarget;
                 } else {
@@ -101,6 +113,13 @@ public class World {
                     remainingMoveDistance = 0;
                 }
             }
+        }
+
+        this.UpdateUnitLocations();
+
+        // Print each unit and location
+        foreach (Unit unit in this.Units) {
+            GD.Print($"Unit {unit.Id}: PreviousLocation={unit.PreviousLocation}, Location={unit.Location}, TargetLocation={unit.TargetLocation}, MoveProgress={unit.MoveProgress:0.0000}");
         }
 
         // Attack units

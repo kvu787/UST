@@ -25,6 +25,6 @@ public partial class Main : Node {
 
     // Called every frame. 'delta' is the elapsed time since the previous frame.
     public override void _Process(double delta) {
-        //Globals.SaveData.Process(delta);
+        Globals.World.Process(delta);
     }
 }

@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.Immutable;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Text;
 
 namespace UST;
 
@@ -65,6 +67,17 @@ public static class Graph {
         }
 
         return graph;
+    }
+
+    public static string MapToString(Dictionary<int, HashSet<int>> map) {
+        ArgumentNullException.ThrowIfNull(map);
+        int locationsCount = map.Count;
+        StringBuilder stringBuilder = new();
+        for (int i = 0; i < locationsCount; i++) {
+            _ = stringBuilder.Append($"{i}: {string.Join(',', map[i].ToImmutableSortedSet())}");
+            _ = stringBuilder.AppendLine();
+        }
+        return stringBuilder.ToString().Trim();
     }
 
     public static List<int> GenerateTeamMap(Dictionary<int, HashSet<int>> graph, double proportionOne) {

@@ -28,6 +28,9 @@ dotnet_diagnostic.CA1002.severity = none
 # CA5394: Do not use insecure randomness
 dotnet_diagnostic.CA5394.severity = none
 
+# CA1305: Specify IFormatProvider
+dotnet_diagnostic.CA1305.severity = none
+
 # IDE0305: Use collection expression for fluent
 dotnet_diagnostic.IDE0305.severity = none
 
@@ -39,7 +42,13 @@ dotnet_diagnostic.IDE0047.severity = suggestion
 dotnet_diagnostic.IDE0048.severity = suggestion
 dotnet_diagnostic.IDE0051.severity = suggestion
 dotnet_diagnostic.IDE0052.severity = suggestion
+dotnet_diagnostic.IDE0059.severity = suggestion
+
 dotnet_diagnostic.CA1823.severity = suggestion
+
+dotnet_diagnostic.CS0219.severity = suggestion
+dotnet_diagnostic.CS0649.severity = suggestion
+dotnet_diagnostic.CS1591.severity = none
 
 dotnet_sort_system_directives_first = false
 csharp_new_line_before_open_brace = none

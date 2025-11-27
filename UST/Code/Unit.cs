@@ -1,6 +1,8 @@
 namespace UST;
 
 public class Unit {
+    public int Id { get; set; }
+
     public required double Health { get; set; }
 
     /// <summary>
