@@ -1,18 +1,12 @@
 using System;
-using System.Runtime.InteropServices;
 using Godot;
 
 namespace UST;
 
 public partial class Main : Node {
-    [LibraryImport("kernel32.dll")]
-    [DefaultDllImportSearchPaths(DllImportSearchPath.System32)]
-    [return: MarshalAs(UnmanagedType.Bool)]
-    private static partial bool AllocConsole();
-
     // Called when the node enters the scene tree for the first time.
     public override void _Ready() {
-        if (!AllocConsole()) {
+        if (!WindowsCommandPrompt.AllocConsole()) {
             throw new InvalidOperationException("AllocConsole() failed");
         }
 
