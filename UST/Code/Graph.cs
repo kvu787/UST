@@ -22,7 +22,7 @@ public static class Graph {
     /// <summary>
     /// Generates a randomly connected graph (vertices and edges)
     /// The graph is undirected
-    /// Graph contains no islands
+    /// Graph contains no islands, except for when there is only one node
     /// The edges from a vertex to other vertices are randomly chosen
     /// Vertices are not allowed to have edges to self
     /// Vertices are not allowed to have more than one edge to another vertex
