@@ -1,4 +1,3 @@
-using Godot;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +15,7 @@ public class World {
     /// Location IDs are from 0 to n
     /// There is at least 1 location
     /// </summary>
-    private readonly Dictionary<int, HashSet<int>> Map;
+    public Dictionary<int, HashSet<int>> Map { get; }
 
     /// <summary>
     /// Maps each location to the team that owns that location.
@@ -38,17 +37,15 @@ public class World {
     private readonly Dictionary<int, HashSet<Unit>> UnitLocations;
 
     // NOTE: This will probably change to per-edge distances.
-    private const double EdgeDistance = 3;
+    private const double EdgeDistance = 1;
 
     public World() {
-        this.LocationsCount = 5;
+        this.LocationsCount = 3;
         double probabilityAddExtraEdge = 1;
         double proportionTeamOne = 0.5;
-        int unitsCount = 5;
+        int unitsCount = 20;
 
         this.Map = Graph.GenerateMap(this.LocationsCount, probabilityAddExtraEdge);
-        GD.Print("Generated map:");
-        GD.Print(Graph.MapToString(this.Map));
         //this.Teams = Graph.GenerateTeamMap(this.Map, proportionTeamOne);
         this.Units = GenerateUnits(unitsCount, this.LocationsCount);
         this.UnitLocations = [];
@@ -72,8 +69,8 @@ public class World {
         for (int i = 0; i < unitsCount; i++) {
             units.Add(new Unit {
                 Id = i,
-                Health = Random.Shared.NextDouble(90, 110),
-                Attack = Random.Shared.NextDouble(4, 6),
+                Health = Random.Shared.NextDouble(80, 120),
+                Attack = Random.Shared.NextDouble(0.5, 1.5),
                 MoveSpeed = Random.Shared.NextDouble(0.8, 1.2),
                 Team = Random.Shared.Next(2),
                 Location = Random.Shared.Next(locationsCount),
@@ -150,10 +147,8 @@ public class World {
         }
     }
 
-    private void CheckVictory() {
+    private bool CheckVictory() {
         // Check if all locations captured by one team
-        if (this.Teams.GroupBy(x => x).Count() == 1) {
-            GD.Print($"Team {this.Teams[0]} Victory!");
-        }
+        return this.Teams.GroupBy(x => x).Count() == 1;
     }
 }

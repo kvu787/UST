@@ -104,6 +104,15 @@ public static class Graph {
         return teams;
     }
 
+    /// <summary>
+    /// The returned path does not include startLocation
+    /// Returns null if no path found
+    /// </summary>
+    /// <param name="graph"></param>
+    /// <param name="startLocation"></param>
+    /// <param name="thisTeam"></param>
+    /// <param name="teams"></param>
+    /// <returns></returns>
     public static List<int> FindPathToNearestUnalliedLocation(Dictionary<int, HashSet<int>> graph, int startLocation, int thisTeam, List<int> teams) {
         ArgumentNullException.ThrowIfNull(graph);
         ArgumentNullException.ThrowIfNull(teams);
